@@ -6,14 +6,19 @@ import colors from 'colors'
 import cors from 'cors'
 import db from './config/db.js'
 import './connections/index.js'
-import { authRouter, branchRouter, orderRouter } from './routes/index.js'
+import {
+	authRouter,
+	branchRouter,
+	categoryOrder,
+	orderRouter,
+} from './routes/index.js'
 // import path from 'path'
 // import { fileURLToPath } from 'url'
 
 // const __filename = fileURLToPath(import.meta.url)
 // const __dirname = path.dirname(__filename)
 
-const PORT = process.env.PORT ?? 3000
+const PORT = process.env.PORT ?? 3001
 
 const app = express()
 
@@ -23,6 +28,7 @@ app.use(cors())
 app.use('/api/auth', authRouter)
 app.use('/api/branches', branchRouter)
 app.use('/api/orders', orderRouter)
+app.use('/api/categories', categoryOrder)
 
 app.get('/', (req, res) => {
 	res.send(`<h1>Server is running on port: ${PORT}</h1>`)
