@@ -9,7 +9,8 @@ import './connections/index.js'
 import {
 	authRouter,
 	branchRouter,
-	categoryOrder,
+	categoryRouter,
+	materialRouter,
 	orderRouter,
 } from './routes/index.js'
 // import path from 'path'
@@ -28,7 +29,8 @@ app.use(cors())
 app.use('/api/auth', authRouter)
 app.use('/api/branches', branchRouter)
 app.use('/api/orders', orderRouter)
-app.use('/api/categories', categoryOrder)
+app.use('/api/categories', categoryRouter)
+app.use('/api/materials', materialRouter)
 
 app.get('/', (req, res) => {
 	res.send(`<h1>Server is running on port: ${PORT}</h1>`)
