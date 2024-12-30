@@ -76,3 +76,21 @@ export const updateMaterial = async (req, res) => {
 		res.status(500).json(generateError('Не удалось обновить материал'))
 	}
 }
+
+export const deleteMaterial = async (req, res) => {
+	try {
+		const { id } = req.params
+
+		await Material.destroy({
+			where: {
+				id,
+			},
+		})
+
+		return res.json({
+			success: true,
+		})
+	} catch (error) {
+		res.status(500).json(generateError('Не удалось удалить материал'))
+	}
+}
