@@ -1,10 +1,18 @@
 import { Op } from 'sequelize'
 import generateError from '../../lib/helpers/generate-error-response.js'
-import { Branch, Order, User } from '../../models/index.js'
+import {
+	Branch,
+	Category,
+	Layout,
+	Material,
+	Order,
+	User,
+} from '../../models/index.js'
 
 export const createOrder = async (req, res) => {
 	try {
-		const { product, description, price } = req.body
+		const { product, description, price, materialId, categoryId, layoutId } =
+			req.body
 		const branchId = req.branchId
 		const userId = req.userId
 
@@ -12,12 +20,17 @@ export const createOrder = async (req, res) => {
 			return res.status(404).json(generateError('Не удалось добавить заказ'))
 		}
 
+		console.log(req.body)
+
 		const order = await Order.create({
 			product,
 			price,
 			description,
 			userId,
 			branchId,
+			materialId,
+			categoryId,
+			layoutId,
 			isGuarantee: true,
 		})
 
@@ -47,19 +60,24 @@ export const getAllOrder = async (req, res) => {
 			]
 		}
 
+		const includingModels = [
+			{
+				model: User,
+				as: 'user',
+				attributes: {
+					exclude: ['password'],
+				},
+			},
+			{ model: Branch, as: 'branch' },
+			{ model: Layout, as: 'layout' },
+			{ model: Material, as: 'material' },
+			{ model: Category, as: 'category' },
+		]
+
 		if (isAdmin) {
 			const orders = await Order.findAll({
 				where: whereClause,
-				include: [
-					{
-						model: User,
-						as: 'user',
-						attributes: {
-							exclude: ['password'],
-						},
-					},
-					{ model: Branch, as: 'branch' },
-				],
+				include: includingModels,
 			})
 
 			return res.status(200).json({
@@ -71,16 +89,7 @@ export const getAllOrder = async (req, res) => {
 		if (!isAdmin && userId) {
 			const orders = await Order.findAll({
 				where: whereClause,
-				include: [
-					{
-						model: User,
-						as: 'user',
-						attributes: {
-							exclude: ['password'],
-						},
-					},
-					{ model: Branch, as: 'branch' },
-				],
+				include: includingModels,
 			})
 
 			return res.status(200).json({
@@ -95,8 +104,24 @@ export const getAllOrder = async (req, res) => {
 
 export const getOrderById = async (req, res) => {
 	try {
+		const includingModels = [
+			{
+				model: User,
+				as: 'user',
+				attributes: {
+					exclude: ['password'],
+				},
+			},
+			{ model: Branch, as: 'branch' },
+			{ model: Layout, as: 'layout' },
+			{ model: Material, as: 'material' },
+			{ model: Category, as: 'category' },
+		]
+
 		const { id } = req.params
-		const branch = await Order.findByPk(id)
+		const branch = await Order.findByPk(id, {
+			include: includingModels,
+		})
 
 		return res.json({
 			success: true,
