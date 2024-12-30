@@ -13,6 +13,9 @@ const Order = sequelize.define('order', {
 	description: {
 		type: DataTypes.STRING,
 	},
+	phone: {
+		type: DataTypes.STRING,
+	},
 	price: {
 		type: DataTypes.INTEGER,
 	},

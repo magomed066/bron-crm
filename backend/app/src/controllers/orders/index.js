@@ -11,16 +11,21 @@ import {
 
 export const createOrder = async (req, res) => {
 	try {
-		const { product, description, price, materialId, categoryId, layoutId } =
-			req.body
+		const {
+			product,
+			description,
+			price,
+			materialId,
+			categoryId,
+			layoutId,
+			phone,
+		} = req.body
 		const branchId = req.branchId
 		const userId = req.userId
 
 		if (!branchId || !userId) {
 			return res.status(404).json(generateError('Не удалось добавить заказ'))
 		}
-
-		console.log(req.body)
 
 		const order = await Order.create({
 			product,
@@ -31,6 +36,7 @@ export const createOrder = async (req, res) => {
 			materialId,
 			categoryId,
 			layoutId,
+			phone,
 			isGuarantee: true,
 		})
 
