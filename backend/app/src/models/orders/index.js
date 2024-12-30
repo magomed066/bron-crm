@@ -13,6 +13,9 @@ const Order = sequelize.define('order', {
 	description: {
 		type: DataTypes.STRING,
 	},
+	phone: {
+		type: DataTypes.STRING,
+	},
 	price: {
 		type: DataTypes.INTEGER,
 	},
@@ -34,6 +37,36 @@ const Order = sequelize.define('order', {
 		allowNull: false,
 		references: {
 			model: 'users',
+			key: 'id',
+		},
+		onUpdate: 'CASCADE',
+		onDelete: 'CASCADE',
+	},
+	materialId: {
+		type: DataTypes.INTEGER,
+		allowNull: false,
+		references: {
+			model: 'materials',
+			key: 'id',
+		},
+		onUpdate: 'CASCADE',
+		onDelete: 'CASCADE',
+	},
+	categoryId: {
+		type: DataTypes.INTEGER,
+		allowNull: false,
+		references: {
+			model: 'categories',
+			key: 'id',
+		},
+		onUpdate: 'CASCADE',
+		onDelete: 'CASCADE',
+	},
+	layoutId: {
+		type: DataTypes.INTEGER,
+		allowNull: false,
+		references: {
+			model: 'layouts',
 			key: 'id',
 		},
 		onUpdate: 'CASCADE',

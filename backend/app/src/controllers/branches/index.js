@@ -1,6 +1,6 @@
 import { Op } from 'sequelize'
 import generateError from '../../lib/helpers/generate-error-response.js'
-import { Branch, Order, User } from '../../models/index.js'
+import { Branch, User } from '../../models/index.js'
 
 export const addBranch = async (req, res) => {
 	try {
@@ -92,6 +92,6 @@ export const deleteBranchById = async (req, res) => {
 			success: true,
 		})
 	} catch (error) {
-		res.status(500).json(generateError('Не удалось получить филиал'))
+		res.status(500).json(generateError('Не удалось удалить филиал'))
 	}
 }

@@ -78,3 +78,21 @@ export const updateCategory = async (req, res) => {
 		res.status(500).json(generateError('Не удалось обновить категорию'))
 	}
 }
+
+export const deleteCategory = async (req, res) => {
+	try {
+		const { id } = req.params
+
+		await Category.destroy({
+			where: {
+				id,
+			},
+		})
+
+		return res.json({
+			success: true,
+		})
+	} catch (error) {
+		res.status(500).json(generateError('Не удалось удалить категорию'))
+	}
+}
