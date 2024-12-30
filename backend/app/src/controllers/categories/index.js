@@ -60,7 +60,7 @@ export const getCategoryById = async (req, res) => {
 	}
 }
 
-export const updatedCategory = async (req, res) => {
+export const updateCategory = async (req, res) => {
 	try {
 		const { id, name } = req.body
 
