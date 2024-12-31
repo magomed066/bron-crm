@@ -53,18 +53,32 @@ export const getAllOrder = async (req, res) => {
 	try {
 		const userId = req.userId
 		const isAdmin = req.isAdmin
-		const { search, page = 1, limit = 20 } = req.query // Extract page and limit from query
+		const {
+			search,
+			page = 1,
+			limit = 20,
+			categoryId,
+			materialId,
+			layoutId,
+			priceFrom,
+			priceTo,
+		} = req.query // Extract query parameters
 
 		const whereClause = {
-			...(!isAdmin &&
-				userId && {
-					userId,
-					deleted: {
-						[Op.not]: true,
-					},
-				}),
+			...(!isAdmin && userId ? { userId, deleted: { [Op.not]: true } } : {}),
+			...(categoryId ? { categoryId } : {}),
+			...(materialId ? { materialId } : {}),
+			...(layoutId ? { layoutId } : {}),
 		}
 
+		// Add price filter if priceFrom or priceTo is provided
+		if (priceFrom || priceTo) {
+			whereClause.price = {}
+			if (priceFrom) whereClause.price[Op.gte] = priceFrom // Greater than or equal to priceFrom
+			if (priceTo) whereClause.price[Op.lte] = priceTo // Less than or equal to priceTo
+		}
+
+		// Add search filter if search term is provided
 		if (search) {
 			whereClause[Op.or] = [
 				{ product: { [Op.like]: `%${search}%` } },
