@@ -33,6 +33,7 @@ export const getAllMaterials = async (req, res) => {
 
 		const materials = await Material.findAll({
 			where: whereClause,
+			order: [['createdAt', 'desc']],
 		})
 
 		return res.status(200).json({

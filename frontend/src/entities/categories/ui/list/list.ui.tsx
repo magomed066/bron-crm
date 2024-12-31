@@ -27,7 +27,7 @@ export const Category: FC<Props> = ({ data, editAction, deleteAction }) => {
 					</ActionIcon>
 				</Flex>
 			) : (
-				<Text size="md" fw={500}>
+				<Text size="md" fw={500} maw={230} className="truncate">
 					{data.name}
 				</Text>
 			)}

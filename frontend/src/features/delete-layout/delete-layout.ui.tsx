@@ -4,42 +4,42 @@ import { FaRegTrashAlt } from 'react-icons/fa'
 import { Props } from './types'
 import { ModalType } from '@/shared/lib/config'
 import { modals } from '@mantine/modals'
-import { useDeleteCategory } from '@/entities/categories'
 import { notifications } from '@mantine/notifications'
+import { useDeleteLayout } from '@/entities/layouts'
 
-export const DeleteCategoryFeature: FC<Props> = ({ categoryId }) => {
-	const { mutate } = useDeleteCategory(
+export const DeleteLayoutFeature: FC<Props> = ({ layoutId }) => {
+	const { mutate } = useDeleteLayout(
 		() => {
 			notifications.show({
 				color: 'green',
 				autoClose: 2500,
-				title: 'Категории',
-				message: 'Категория успешно удалена',
+				title: 'Оформление',
+				message: 'Оформление успешно удалено',
 			})
 		},
 		(errors) => {
 			notifications.show({
 				color: 'red',
 				autoClose: 2500,
-				title: 'Категории',
+				title: 'Оформление',
 				message: errors.map((el) => el.message).join(','),
 			})
 		},
 	)
 
 	const handleConfirm = () => {
-		if (!categoryId) return
+		if (!layoutId) return
 
 		modals.openConfirmModal({
-			modalId: ModalType.CONFIRM_DELETE_CATEGORY,
+			modalId: ModalType.CONFIRM_DELETE_LAYOUT,
 			size: 380,
 			children: (
 				<Text size="lg" mb={30} className="text-center">
-					Вы точно хотите удалить категорию?
+					Вы точно хотите удалить оформление?
 				</Text>
 			),
 			labels: { confirm: 'Удалить', cancel: 'Отмена' },
-			onConfirm: () => mutate(categoryId),
+			onConfirm: () => mutate(layoutId),
 		})
 	}
 

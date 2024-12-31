@@ -10,4 +10,14 @@ export class LayoutsService {
 	static remove(id: number) {
 		return apiService.delete<AxiosResponse<Layout[]>>(`/layouts/delete/${id}`)
 	}
+
+	static add(name: string) {
+		return apiService.post(`/layouts/create`, {
+			name,
+		})
+	}
+
+	static update(data: { id: number; name: string }) {
+		return apiService.post(`/layouts/update`, data)
+	}
 }

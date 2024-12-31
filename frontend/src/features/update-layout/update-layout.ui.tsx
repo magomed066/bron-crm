@@ -2,26 +2,26 @@ import { FC, useState } from 'react'
 import { Props } from './types'
 import { ActionIcon, Flex, TextInput } from '@mantine/core'
 import { FaCheck } from 'react-icons/fa6'
-import { useUpdateCategory } from '@/entities/categories'
 import { notifications } from '@mantine/notifications'
+import { useUpdateLayout } from '@/entities/layouts'
 
-export const UpdateCategoryFeature: FC<Props> = ({ name, categoryId }) => {
+export const UpdateLayoutFeature: FC<Props> = ({ name, layoutId }) => {
 	const [value, setValue] = useState(name)
 
-	const { mutate } = useUpdateCategory(
+	const { mutate } = useUpdateLayout(
 		() => {
 			notifications.show({
 				color: 'green',
 				autoClose: 2500,
-				title: 'Изменение категории',
-				message: 'Категория успешно изменена',
+				title: 'Изменение оформления',
+				message: 'Оформление успешно изменено',
 			})
 		},
 		(errors) => {
 			notifications.show({
 				color: 'red',
 				autoClose: 2500,
-				title: 'Изменение категории',
+				title: 'Изменение оформления',
 				message: errors.map((el) => el.message).join(','),
 			})
 		},
@@ -32,14 +32,14 @@ export const UpdateCategoryFeature: FC<Props> = ({ name, categoryId }) => {
 			notifications.show({
 				color: 'red',
 				autoClose: 2500,
-				title: 'Изменение категории',
-				message: 'Название категории не может быть пустым',
+				title: 'Изменение оформления',
+				message: 'Название оформления не может быть пустым',
 			})
 			return
 		}
 
 		mutate({
-			id: categoryId,
+			id: layoutId,
 			name: value,
 		})
 	}
