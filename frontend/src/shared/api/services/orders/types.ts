@@ -35,3 +35,10 @@ export type UpdatedOrder = {
 	id: number
 	data: Pick<Order, 'product' | 'description' | 'price' | 'isGuarantee'>
 }
+
+export type AllOrdersResponse = {
+	data: Order[]
+	total: number
+	page: number
+	totalPages: number
+}

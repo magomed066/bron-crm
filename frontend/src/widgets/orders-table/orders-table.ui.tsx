@@ -4,11 +4,16 @@ import { CustomDrawer } from '@/shared/ui'
 import { Box, Flex } from '@mantine/core'
 import { OrderInfoWidget } from '../order-info/order-info.ui'
 import { Order } from '@/shared/api/services'
+import { useState } from 'react'
 
 export const OrdersTableWidget = () => {
 	const { getQueryParam, setQueryParams, removeQueryParam } = useQueryParams()
 	const searchQuery = getQueryParam('search')
-	const { orders, isFetching } = useGetOrders(searchQuery)
+	const [currentPage, setCurrentPage] = useState(1)
+	const { orders, totalPages, isFetching } = useGetOrders(
+		searchQuery,
+		currentPage,
+	)
 	const { setDrawOpened, drawOpened } = useOrderStore()
 
 	const handleClose = () => {
@@ -30,6 +35,9 @@ export const OrdersTableWidget = () => {
 					onRowClick={handleRowClick}
 					data={orders || []}
 					isLoading={isFetching}
+					activePage={currentPage}
+					paginationTotal={totalPages}
+					onChangePagination={setCurrentPage}
 				/>
 			</Flex>
 

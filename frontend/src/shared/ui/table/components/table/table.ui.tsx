@@ -10,7 +10,7 @@ export const Table = <T, K extends keyof T>({
 	data = [],
 	columns = [],
 	className,
-	pagination,
+
 	rowContextMenu,
 	onRowClick,
 	onRowDoubleClick,
@@ -21,7 +21,6 @@ export const Table = <T, K extends keyof T>({
 	const { table } = useTable({
 		data,
 		columns,
-		pagination,
 		setGlobalFilter,
 		filtering: globalFilter,
 	})

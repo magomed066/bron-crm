@@ -2,6 +2,7 @@ import { Skeleton } from './components/skeleton'
 import { EmptyData } from './components/empty-data'
 import { Table } from './components/table'
 import { TableProps } from '@/shared/types/table'
+import { Pagination } from '@mantine/core'
 
 export const TableContainer = <T, K extends keyof T>({
 	data,
@@ -17,6 +18,9 @@ export const TableContainer = <T, K extends keyof T>({
 	emptyMessageLinkText,
 	isEnableLink = true,
 	onRowDoubleClick,
+	onChangePagination,
+	activePage,
+	paginationTotal,
 }: TableProps<T, K>) => {
 	if (isLoading) {
 		return <Skeleton />
@@ -35,10 +39,6 @@ export const TableContainer = <T, K extends keyof T>({
 	}
 
 	return (
-		// <div className="flex flex-col w-full">
-		// <div className="overflow-x-auto">
-		// <div className="w-full inline-block align-middle">
-
 		<div className="overflow-hidden">
 			<Table
 				columns={columns}
@@ -48,10 +48,20 @@ export const TableContainer = <T, K extends keyof T>({
 				onRowDoubleClick={onRowDoubleClick}
 				rowContextMenu={contextMenu}
 				loadMore={loadMore}
+				onChangePagination={onChangePagination}
+				activePage={activePage}
+				paginationTotal={paginationTotal}
 			/>
+
+			{pagination && (
+				<Pagination
+					mt={16}
+					total={paginationTotal || 0}
+					value={activePage}
+					onChange={onChangePagination}
+					color="primaryColor"
+				/>
+			)}
 		</div>
-		// </div>
-		// </div>
-		// </div>
 	)
 }
