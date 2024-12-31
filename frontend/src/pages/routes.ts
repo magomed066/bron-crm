@@ -9,6 +9,8 @@ const CategoriesPage = React.lazy(() => import('./categories'))
 const UsersPage = React.lazy(() => import('./users'))
 const ProfilePage = React.lazy(() => import('./profile'))
 const EmployeesPage = React.lazy(() => import('./employees'))
+const MaterialsPage = React.lazy(() => import('./materials'))
+const LayoutsPage = React.lazy(() => import('./layouts'))
 
 export const publicRoutes = [
 	{
@@ -41,6 +43,14 @@ export const privateRoutes = [
 	{
 		Component: EmployeesPage,
 		path: routes.employees,
+	},
+	{
+		Component: MaterialsPage,
+		path: routes.materials,
+	},
+	{
+		Component: LayoutsPage,
+		path: routes.layouts,
 	},
 	{
 		Component: NotFoundPage,

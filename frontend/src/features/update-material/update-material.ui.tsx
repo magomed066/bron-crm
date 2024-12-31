@@ -2,34 +2,44 @@ import { FC, useState } from 'react'
 import { Props } from './types'
 import { ActionIcon, Flex, TextInput } from '@mantine/core'
 import { FaCheck } from 'react-icons/fa6'
-import { useUpdateCategory } from '@/entities/categories'
 import { notifications } from '@mantine/notifications'
+import { useUpdateMaterial } from '@/entities/materials'
 
-export const UpdateCategoryFeature: FC<Props> = ({ name, categoryId }) => {
+export const UpdateMaterialFeature: FC<Props> = ({ name, materialId }) => {
 	const [value, setValue] = useState(name)
 
-	const { mutate } = useUpdateCategory(
+	const { mutate } = useUpdateMaterial(
 		() => {
 			notifications.show({
 				color: 'green',
 				autoClose: 2500,
-				title: 'Изменение категории',
-				message: 'Категория успешно изменена',
+				title: 'Изменение материала',
+				message: 'Материал успешно изменен',
 			})
 		},
 		(errors) => {
 			notifications.show({
 				color: 'red',
 				autoClose: 2500,
-				title: 'Изменение категории',
+				title: 'Изменение материала',
 				message: errors.map((el) => el.message).join(','),
 			})
 		},
 	)
 
 	const handleClick = () => {
+		if (!value) {
+			notifications.show({
+				color: 'red',
+				autoClose: 2500,
+				title: 'Изменение материала',
+				message: 'Название материала не может быть пустым',
+			})
+			return
+		}
+
 		mutate({
-			id: categoryId,
+			id: materialId,
 			name: value,
 		})
 	}

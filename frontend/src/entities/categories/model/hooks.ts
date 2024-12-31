@@ -21,7 +21,7 @@ export const useGetCategories = () => {
 
 export const useDeleteCategory = (
 	onSuccess?: () => void,
-	onError?: () => void,
+	onError?: (errors: RequestError['errors']) => void,
 ) => {
 	const client = useQueryClient()
 
@@ -31,7 +31,12 @@ export const useDeleteCategory = (
 			client.invalidateQueries({ queryKey: categoriesQueryKeys.all() })
 			onSuccess?.()
 		},
-		onError,
+		onError: (err: AxiosError<RequestError>) => {
+			console.log(err.response)
+			if (err.response?.data.errors) {
+				onError?.(err.response.data.errors)
+			}
+		},
 	})
 }
 

@@ -33,13 +33,15 @@ export const Category: FC<Props> = ({ data, editAction, deleteAction }) => {
 			)}
 
 			<Flex align="center" gap={8}>
-				<ActionIcon
-					variant="white"
-					className="group"
-					onClick={() => setEdit(true)}
-				>
-					<FaPencilAlt className="text-gray-600 group-hover:text-gray-900 transition" />
-				</ActionIcon>
+				{editAction && (
+					<ActionIcon
+						variant="white"
+						className="group"
+						onClick={() => setEdit(true)}
+					>
+						<FaPencilAlt className="text-gray-600 group-hover:text-gray-900 transition" />
+					</ActionIcon>
+				)}
 
 				{deleteAction}
 			</Flex>

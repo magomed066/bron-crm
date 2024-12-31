@@ -6,4 +6,6 @@ export enum ModalType {
 	'ADD_EMPLOYEE' = 'add_employee',
 	'CONFIRM_DELETE_BRANCH' = 'confirm_delete_branch',
 	'ADD_CATEGORY' = 'add_category',
+	'ADD_MATERIAL' = 'add_material',
+	'CONFIRM_DELETE_MATERIAL' = 'confirm_delete_material',
 }
