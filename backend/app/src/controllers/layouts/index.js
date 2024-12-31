@@ -36,6 +36,7 @@ export const getAllLayouts = async (req, res) => {
 
 		const layouts = await Layout.findAll({
 			where: whereClause,
+			order: [['createdAt', 'desc']],
 		})
 
 		return res.status(200).json({

@@ -1,3 +1,3 @@
 export type Props = {
-	categoryId?: number
+	categoryId: number
 }

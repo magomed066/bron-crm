@@ -8,14 +8,24 @@ import { useDeleteCategory } from '@/entities/categories'
 import { notifications } from '@mantine/notifications'
 
 export const DeleteCategoryFeature: FC<Props> = ({ categoryId }) => {
-	const { mutate } = useDeleteCategory(() => {
-		notifications.show({
-			color: 'green',
-			autoClose: 2500,
-			title: 'Категории',
-			message: 'Категория успешно удалена',
-		})
-	})
+	const { mutate } = useDeleteCategory(
+		() => {
+			notifications.show({
+				color: 'green',
+				autoClose: 2500,
+				title: 'Категории',
+				message: 'Категория успешно удалена',
+			})
+		},
+		(errors) => {
+			notifications.show({
+				color: 'red',
+				autoClose: 2500,
+				title: 'Категории',
+				message: errors.map((el) => el.message).join(','),
+			})
+		},
+	)
 
 	const handleConfirm = () => {
 		if (!categoryId) return

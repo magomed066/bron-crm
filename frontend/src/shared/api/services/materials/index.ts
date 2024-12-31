@@ -12,4 +12,14 @@ export class MaterialsService {
 			`/materials/delete/${id}`,
 		)
 	}
+
+	static add(name: string) {
+		return apiService.post(`/materials/create`, {
+			name,
+		})
+	}
+
+	static update(data: { id: number; name: string }) {
+		return apiService.post(`/materials/update`, data)
+	}
 }

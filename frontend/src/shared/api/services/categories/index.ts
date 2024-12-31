@@ -12,4 +12,13 @@ export class CategoriesService {
 			`/categories/delete/${id}`,
 		)
 	}
+	static add(name: string) {
+		return apiService.post<AxiosResponse<Category[]>>(`/categories/create`, {
+			name,
+		})
+	}
+
+	static update(data: { id: number; name: string }) {
+		return apiService.post(`/categories/update`, data)
+	}
 }

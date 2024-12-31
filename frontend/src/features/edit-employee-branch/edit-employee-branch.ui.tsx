@@ -22,7 +22,7 @@ export const EditEMployeeBranchFeature: FC<Props> = ({ branchId, userId }) => {
 		},
 		(errors) => {
 			notifications.show({
-				color: 'green',
+				color: 'red',
 				autoClose: 2500,
 				title: 'Смена филиала',
 				message: errors.map((el) => el.message).join(','),

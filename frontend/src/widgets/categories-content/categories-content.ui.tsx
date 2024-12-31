@@ -1,10 +1,11 @@
 import {
-	CategoriesList,
 	CategoriesSkeleton,
+	Category,
 	useGetCategories,
 } from '@/entities/categories'
 import { DeleteCategoryFeature } from '@/features/delete-category'
-import { Box, Text } from '@mantine/core'
+import { UpdateCategoryFeature } from '@/features/update-category'
+import { Box, Flex, Text } from '@mantine/core'
 
 export const CategoriesContentWidget = () => {
 	const { categories, isFetching } = useGetCategories()
@@ -24,13 +25,21 @@ export const CategoriesContentWidget = () => {
 	}
 
 	return (
-		<Box py={28} px={28}>
-			<Box maw={500}>
-				<CategoriesList
-					data={categories}
-					actions={[<DeleteCategoryFeature />]}
-				/>
-			</Box>
+		<Box py={28}>
+			<Flex direction="column" gap={16}>
+				{categories.length
+					? categories.map((el) => (
+							<Category
+								key={el.id}
+								data={el}
+								deleteAction={<DeleteCategoryFeature categoryId={el.id} />}
+								editAction={
+									<UpdateCategoryFeature categoryId={el.id} name={el.name} />
+								}
+							/>
+					  ))
+					: null}
+			</Flex>
 		</Box>
 	)
 }

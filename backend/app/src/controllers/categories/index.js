@@ -35,6 +35,7 @@ export const getAllCategories = async (req, res) => {
 
 		const orders = await Category.findAll({
 			where: whereClause,
+			order: [['createdAt', 'desc']],
 		})
 
 		return res.status(200).json({
