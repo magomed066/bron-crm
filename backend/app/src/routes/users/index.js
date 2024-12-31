@@ -4,6 +4,7 @@ import {
 	login,
 	register,
 	updateEmployeeBranch,
+	updateProfile,
 } from '../../controllers/users/index.js'
 import {
 	registerValidation,
@@ -24,5 +25,6 @@ router.post(
 	checkRole,
 	updateEmployeeBranch,
 )
+router.post('/update/profile', checkAuth, updateProfile)
 
 export default router

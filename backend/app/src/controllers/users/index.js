@@ -137,3 +137,41 @@ export const updateEmployeeBranch = async (req, res) => {
 		res.status(500).json(generateError('Не удалось получить сотрудников'))
 	}
 }
+
+export const updateProfile = async (req, res) => {
+	try {
+		const userId = req.userId
+		const { firstName, lastName, email, phone } = req.body
+
+		if (!userId) {
+			return res
+				.status(404)
+				.json(generateError('Не удалось обновить данные профиля'))
+		}
+
+		await User.update(
+			{
+				firstName,
+				lastName,
+				email,
+				phone,
+			},
+			{
+				where: { id: userId },
+				returning: true,
+			},
+		)
+
+		return res.json({
+			success: true,
+			data: {
+				firstName,
+				lastName,
+				email,
+				phone,
+			},
+		})
+	} catch (error) {
+		res.status(500).json(generateError('Не удалось обновить данные профиля'))
+	}
+}
