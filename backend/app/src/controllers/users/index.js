@@ -175,3 +175,56 @@ export const updateProfile = async (req, res) => {
 		res.status(500).json(generateError('Не удалось обновить данные профиля'))
 	}
 }
+
+export const updatePassword = async (req, res) => {
+	try {
+		const userId = req.userId
+		const { oldPassword, newPassword } = req.body
+
+		if (!userId) {
+			return res.status(404).json(generateError('Не удалось сменить пароль'))
+		}
+
+		const user = await User.findOne({ where: { id: userId } })
+
+		const { password: hashPass, ...userData } = user?.dataValues
+
+		const isValidPassword = await bcrypt.compare(oldPassword, hashPass)
+
+		if (!isValidPassword) {
+			return res.status(404).json(generateError('Введите коректный пароль'))
+		}
+
+		const salt = await bcrypt.genSalt(10)
+		const hashedPassword = await bcrypt.hash(newPassword, salt)
+
+		const { accessToken, refreshToken } = tokenService.generateTokens({
+			_id: userData.id,
+			userInfo: {
+				isAdmin: user.dataValues.isAdmin,
+				...(user.dataValues.branchId && { branchId: user.dataValues.branchId }),
+			},
+		})
+
+		await User.update(
+			{
+				password: hashedPassword,
+			},
+			{
+				where: { id: userId },
+				returning: true,
+			},
+		)
+
+		return res.json({
+			success: true,
+			data: {
+				...userData,
+				accessToken,
+				refreshToken,
+			},
+		})
+	} catch (error) {
+		res.status(500).json(generateError('Не удалось сменить пароль'))
+	}
+}
