@@ -130,6 +130,8 @@ export const updateEmployeeBranch = async (req, res) => {
 
 		await User.update({ branchId }, { where: { id } })
 
+		req.branchId = branchId
+
 		return res.json({
 			success: true,
 		})

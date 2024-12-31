@@ -52,7 +52,7 @@ export const useCreateOrderMutation = (
 	return useMutation({
 		mutationFn: (data: CreateOrder) => OrdersService.create(data),
 		onSuccess: () => {
-			client.invalidateQueries({ queryKey: ordersQueryKeys.allOrders() })
+			client.invalidateQueries({ queryKey: ordersQueryKeys.allOrders('', 1) })
 			onSuccess?.()
 		},
 		onError: (err: AxiosError<RequestError>) => {
@@ -67,11 +67,9 @@ export const useUpdateOrderMutation = (
 	onSuccess?: () => void,
 	onError?: (err: RequestError['errors']) => void,
 ) => {
-	const client = useQueryClient()
 	return useMutation({
 		mutationFn: (data: UpdatedOrder) => OrdersService.update(data),
 		onSuccess: () => {
-			client.invalidateQueries({ queryKey: ordersQueryKeys.allOrders() })
 			onSuccess?.()
 		},
 		onError: (err: AxiosError<RequestError>) => {

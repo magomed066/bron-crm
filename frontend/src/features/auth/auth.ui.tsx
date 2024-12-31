@@ -44,7 +44,7 @@ export const AuthFormFeature = () => {
 				color: 'red',
 				autoClose: 2500,
 				title: 'Авторизация',
-				message: err,
+				message: err.map((el) => el.message).join(','),
 			})
 		},
 	)

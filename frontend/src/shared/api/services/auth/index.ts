@@ -1,6 +1,13 @@
 import { AxiosResponse } from 'axios'
 import { apiService } from '../../base'
-import { User, UserLogin } from './types'
+import {
+	UpdateEmployeeBranch,
+	UpdatePassword,
+	UpdateUser,
+	UpdateUserResponse,
+	User,
+	UserLogin,
+} from './types'
 
 export class AuthService {
 	static login(data: UserLogin): Promise<AxiosResponse<User>> {
@@ -14,5 +21,17 @@ export class AuthService {
 
 	static getAllEmployees(): Promise<AxiosResponse<User[]>> {
 		return apiService.get<AxiosResponse<User[]>>('/auth/employees')
+	}
+
+	static updateProfile(data: UpdateUser): Promise<UpdateUserResponse> {
+		return apiService.post<UpdateUserResponse>('/auth/update/profile', data)
+	}
+
+	static updatePassword(data: UpdatePassword): Promise<User> {
+		return apiService.post<User>('/auth/update/password', data)
+	}
+
+	static updateEmployeeBranch(data: UpdateEmployeeBranch): Promise<User> {
+		return apiService.post<User>('/auth/employees/update/branch', data)
 	}
 }

@@ -7,6 +7,7 @@ export const authQueryKeys = {
 	register: () => ['register'],
 	login: () => ['login'],
 	employees: () => ['employees'],
+	updateProfile: () => ['updateProfile'],
 }
 
 export const loginFormInitialValues: UserLogin = {

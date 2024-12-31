@@ -5,11 +5,16 @@ import { Box, Flex } from '@mantine/core'
 import { OrderInfoWidget } from '../order-info/order-info.ui'
 import { Order } from '@/shared/api/services'
 import { useState } from 'react'
+import { useUserStore } from '@/entities/auth'
 
 export const OrdersTableWidget = () => {
+	const { user } = useUserStore()
 	const { getQueryParam, setQueryParams, removeQueryParam } = useQueryParams()
 	const searchQuery = getQueryParam('search')
-	const [currentPage, setCurrentPage] = useState(1)
+	const ordersPageQuery = getQueryParam('ordersPage')
+	const [currentPage, setCurrentPage] = useState(
+		ordersPageQuery ? Number(ordersPageQuery) : 1,
+	)
 	const { orders, totalPages, isFetching } = useGetOrders(
 		searchQuery,
 		currentPage,
@@ -22,10 +27,19 @@ export const OrdersTableWidget = () => {
 	}
 
 	const handleRowClick = (data: Order) => {
+		if (!user?.isAdmin) {
+			setQueryParams({
+				orderId: String(data.id),
+			})
+			setDrawOpened(true)
+		}
+	}
+
+	const handleCurrentPage = (page: number) => {
+		setCurrentPage(page)
 		setQueryParams({
-			orderId: String(data.id),
+			ordersPage: String(page),
 		})
-		setDrawOpened(true)
 	}
 
 	return (
@@ -37,7 +51,7 @@ export const OrdersTableWidget = () => {
 					isLoading={isFetching}
 					activePage={currentPage}
 					paginationTotal={totalPages}
-					onChangePagination={setCurrentPage}
+					onChangePagination={handleCurrentPage}
 				/>
 			</Flex>
 
