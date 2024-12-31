@@ -14,7 +14,7 @@ export const useUserStore = create<UserStore>((set) => ({
 	user,
 	isLoggingOut: false,
 	setUser(data) {
-		set((prev) => ({ ...prev, user: data }))
+		set((prev) => ({ ...prev, user: { ...prev.user, ...data } }))
 
 		localStorage.setItem('user', JSON.stringify(data))
 	},

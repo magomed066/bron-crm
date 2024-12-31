@@ -12,3 +12,23 @@ export type User = {
 export type UserLogin = Pick<User, 'email'> & {
 	password: string
 }
+
+export type UpdateUser = Pick<
+	User,
+	'firstName' | 'lastName' | 'email' | 'phone'
+>
+
+export type UpdateUserResponse = {
+	success: boolean
+	data: UpdateUser
+}
+
+export type UpdatePassword = {
+	oldPassword: string
+	newPassword: string
+}
+
+export type UpdateEmployeeBranch = {
+	newPassword: string
+	oldPassword: string
+}

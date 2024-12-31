@@ -33,7 +33,7 @@ export const useCreateBranchMutation = (
 		},
 		onError: (err: AxiosError<RequestError>) => {
 			console.log(err.response)
-			if (err.response?.data.error) {
+			if (err.response?.data.errors) {
 				console.log(err)
 				onError?.('error')
 			}

@@ -1,4 +1,4 @@
-import { useUserStore } from '@/entities/auth'
+import { UpdateProfileFeature } from '@/features/update-profile'
 import {
 	Button,
 	Card,
@@ -6,36 +6,16 @@ import {
 	Grid,
 	GridCol,
 	PasswordInput,
-	TextInput,
 	Title,
 } from '@mantine/core'
 
 export const ProfileWidget = () => {
-	const { user } = useUserStore()
-
 	return (
 		<Card p={24} shadow="xs">
 			<Title order={5} c="secondaryColor" mb={16}>
 				Персональные данные
 			</Title>
-			<Grid>
-				<GridCol span={6}>
-					<TextInput label="Имя" defaultValue={user?.firstName} />
-				</GridCol>
-				<GridCol span={6}>
-					<TextInput label="Фамилия" defaultValue={user?.lastName} />
-				</GridCol>
-				<GridCol span={6}>
-					<TextInput label="Email" defaultValue={user?.email} />
-				</GridCol>
-				<GridCol span={6}>
-					<TextInput label="Телефон" defaultValue={user?.phone} />
-				</GridCol>
-			</Grid>
-
-			<Button w={150} mt={24} variant="light" className="ml-auto">
-				Обновить
-			</Button>
+			<UpdateProfileFeature />
 
 			<Divider my={24} />
 
