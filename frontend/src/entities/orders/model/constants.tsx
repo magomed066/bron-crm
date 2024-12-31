@@ -42,12 +42,67 @@ export const ordersTableConfig: ColumnDef<Order>[] = [
 		cell: (row) => {
 			const { original } = row.cell.row
 
-			return <span>{original.description}</span>
+			const desc = original.description || ''
+			const cutDesc = desc.length > 22 ? desc.slice(0, 20) + '...' : desc
+
+			return (
+				<Tooltip label={desc} withArrow position="top" offset={5}>
+					<span>{cutDesc}</span>
+				</Tooltip>
+			)
 		},
 		maxSize: 20,
 	},
 	{
 		id: '4',
+		header: 'Телефон',
+		accessorKey: 'phone',
+
+		cell: (row) => {
+			const { original } = row.cell.row
+
+			return <span>{original.phone}</span>
+		},
+		maxSize: 20,
+	},
+	{
+		id: '5',
+		header: 'Категория',
+		accessorKey: 'category',
+
+		cell: (row) => {
+			const { original } = row.cell.row
+
+			return <span>{original.category.name}</span>
+		},
+		maxSize: 20,
+	},
+	{
+		id: '6',
+		header: 'Материал',
+		accessorKey: 'material',
+
+		cell: (row) => {
+			const { original } = row.cell.row
+
+			return <span>{original.material.name}</span>
+		},
+		maxSize: 20,
+	},
+	{
+		id: '7',
+		header: 'Оформление',
+		accessorKey: 'layout',
+
+		cell: (row) => {
+			const { original } = row.cell.row
+
+			return <span>{original.layout.name}</span>
+		},
+		maxSize: 20,
+	},
+	{
+		id: '8',
 		header: 'Цена ₽',
 		accessorKey: 'price',
 
@@ -59,7 +114,7 @@ export const ordersTableConfig: ColumnDef<Order>[] = [
 		maxSize: 20,
 	},
 	{
-		id: '5',
+		id: '9',
 		header: 'Гарантия',
 		cell: (row) => {
 			const { original } = row.cell.row
@@ -77,7 +132,7 @@ export const ordersTableConfig: ColumnDef<Order>[] = [
 		maxSize: 20,
 	},
 	{
-		id: '6',
+		id: '10',
 		header: 'Работник',
 		accessorKey: 'user',
 
@@ -98,7 +153,7 @@ export const ordersTableConfig: ColumnDef<Order>[] = [
 		maxSize: 20,
 	},
 	{
-		id: '7',
+		id: '11',
 		header: 'Точка',
 		accessorKey: 'price',
 

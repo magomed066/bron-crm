@@ -34,7 +34,7 @@ export const getAllLayouts = async (req, res) => {
 			whereClause[Op.or] = [{ name: { [Op.like]: `%${search}%` } }]
 		}
 
-		const layouts = await Material.findAll({
+		const layouts = await Layout.findAll({
 			where: whereClause,
 		})
 

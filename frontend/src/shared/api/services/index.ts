@@ -12,3 +12,9 @@ export * from './branches/types'
 
 export * from './employees'
 export * from './employees/types'
+
+export * from './materials'
+export * from './materials/types'
+
+export * from './layouts'
+export * from './layouts/types'
