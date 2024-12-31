@@ -17,15 +17,18 @@ export type Order = {
 	category: Category
 	material: Material
 	layout: Layout
+	materialId: number
+	categoryId: number
+	layoutId: number
 }
 
 export type CreateOrder = Pick<
 	Order,
 	'product' | 'description' | 'price' | 'phone'
 > & {
-	materialId: number
-	categoryId: number
-	layoutId: number
+	materialId: number | string
+	categoryId: number | string
+	layoutId: number | string
 }
 
 export type UpdatedOrder = {
