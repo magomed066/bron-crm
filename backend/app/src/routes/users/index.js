@@ -3,6 +3,9 @@ import {
 	getAllEmployees,
 	login,
 	register,
+	updateEmployeeBranch,
+	updatePassword,
+	updateProfile,
 } from '../../controllers/users/index.js'
 import {
 	registerValidation,
@@ -17,5 +20,13 @@ const router = express.Router()
 router.post('/register', registerValidation, handleValidationErrors, register)
 router.post('/login', loginValidation, handleValidationErrors, login)
 router.get('/employees', checkAuth, checkRole, getAllEmployees)
+router.post(
+	'/employees/update/branch',
+	checkAuth,
+	checkRole,
+	updateEmployeeBranch,
+)
+router.post('/update/profile', checkAuth, updateProfile)
+router.post('/update/password', checkAuth, updatePassword)
 
 export default router
