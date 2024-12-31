@@ -1,8 +1,12 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { Props } from './types'
-import { Avatar, Divider, Flex, Text } from '@mantine/core'
+import { ActionIcon, Avatar, Divider, Flex, Text } from '@mantine/core'
+import { FaPencilAlt } from 'react-icons/fa'
+import { MdOutlineCancel } from 'react-icons/md'
 
-export const EmployeeCard: FC<Props> = ({ data }) => {
+export const EmployeeCard: FC<Props> = ({ data, editAction }) => {
+	const [edit, setEdit] = useState(false)
+
 	return (
 		<Flex
 			key={data.id}
@@ -37,6 +41,20 @@ export const EmployeeCard: FC<Props> = ({ data }) => {
 					Телефон
 				</Text>
 				<Text size="md">{data.phone || 'Отсутствует'}</Text>
+			</Flex>
+
+			<Flex className="ml-auto" align="center" gap={16}>
+				{edit && editAction}
+
+				{edit ? (
+					<ActionIcon color="whiteColor" onClick={() => setEdit(false)}>
+						<MdOutlineCancel className="text-gray-600" size={24} />
+					</ActionIcon>
+				) : (
+					<ActionIcon color="whiteColor" onClick={() => setEdit(true)}>
+						<FaPencilAlt className="text-gray-600" />
+					</ActionIcon>
+				)}
 			</Flex>
 		</Flex>
 	)

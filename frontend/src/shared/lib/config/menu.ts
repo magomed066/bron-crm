@@ -10,7 +10,7 @@ type NavLink = {
 
 export const menuLinks: NavLink[] = [
 	{
-		link: routes.orders,
+		link: `${routes.orders}?orderPage=1`,
 		label: 'Заказы',
 		links: [],
 		roles: [Roles.Admin, Roles.Worker],

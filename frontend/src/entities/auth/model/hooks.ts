@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import {
 	AuthService,
+	UpdateEmployeeBranch,
 	UpdatePassword,
 	UpdateUser,
 	User,
@@ -51,6 +52,23 @@ export const useUpdatePasswordMutation = (
 ) => {
 	return useMutation({
 		mutationFn: (data: UpdatePassword) => AuthService.updatePassword(data),
+		onSuccess,
+		onError: (err: AxiosError<RequestError>) => {
+			console.log(err.response)
+			if (err.response?.data.errors) {
+				onError?.(err.response.data.errors)
+			}
+		},
+	})
+}
+
+export const useUpdateEmployeeBranchMutation = (
+	onSuccess?: () => void,
+	onError?: (err: RequestError['errors']) => void,
+) => {
+	return useMutation({
+		mutationFn: (data: UpdateEmployeeBranch) =>
+			AuthService.updateEmployeeBranch(data),
 		onSuccess,
 		onError: (err: AxiosError<RequestError>) => {
 			console.log(err.response)

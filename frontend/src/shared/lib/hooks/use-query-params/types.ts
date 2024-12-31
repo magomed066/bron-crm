@@ -2,6 +2,7 @@ export type QueryParams = {
 	step?: string
 	search?: string
 	page?: string
+	ordersPage?: string
 	categoryId?: string
 	restaurantId?: string
 	productCategoryId?: string

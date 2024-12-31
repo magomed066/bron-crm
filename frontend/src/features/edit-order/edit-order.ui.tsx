@@ -17,15 +17,26 @@ import {
 import { useForm } from '@mantine/form'
 import { FC, useEffect, useMemo, useState } from 'react'
 import { Props } from './types'
-import { useOrderStore, useUpdateOrderMutation } from '@/entities/orders'
+import {
+	ordersQueryKeys,
+	useOrderStore,
+	useUpdateOrderMutation,
+} from '@/entities/orders'
 import { notifications } from '@mantine/notifications'
 import { useGetMaterials } from '@/entities/materials'
 import { useGetCategories } from '@/entities/categories'
 import { useGetLayouts } from '@/entities/layouts'
 import { PhoneInput } from '@/shared/ui'
+import { useQueryParams } from '@/shared/lib/hooks'
+import { useQueryClient } from '@tanstack/react-query'
 
 export const EditOrderFeature: FC<Props> = ({ data }) => {
 	const { setDrawOpened } = useOrderStore()
+
+	const client = useQueryClient()
+
+	const { getQueryParam } = useQueryParams()
+	const ordersPageQuery = getQueryParam('ordersPage')
 
 	const { isFetching, materials } = useGetMaterials()
 	const { isFetching: categoriesLoading, categories } = useGetCategories()
@@ -54,6 +65,10 @@ export const EditOrderFeature: FC<Props> = ({ data }) => {
 
 	const { mutate, isPending } = useUpdateOrderMutation(
 		() => {
+			client.invalidateQueries({
+				queryKey: ordersQueryKeys.allOrders('', Number(ordersPageQuery)),
+			})
+
 			setDrawOpened(false)
 			notifications.show({
 				color: 'green',

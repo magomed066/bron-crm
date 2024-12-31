@@ -1,6 +1,6 @@
 import { User } from '../auth/types'
 
-export type Employee = Pick<
+export type Employee = { branchId: number } & Pick<
 	User,
 	'id' | 'email' | 'firstName' | 'lastName' | 'phone'
 >

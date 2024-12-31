@@ -29,8 +29,8 @@ export type UpdatePassword = {
 }
 
 export type UpdateEmployeeBranch = {
-	newPassword: string
-	oldPassword: string
+	id: number
+	branchId: number
 }
 
 export type UpdatePasswordResponse = {

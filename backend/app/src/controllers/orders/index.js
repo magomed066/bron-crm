@@ -150,11 +150,10 @@ export const getOrderById = async (req, res) => {
 export const updatedOrder = async (req, res) => {
 	try {
 		const { id, data } = req.body
-		const branchId = req.branchId
 		const userId = req.userId
 
 		await Order.update(data, {
-			where: { id, branchId, userId },
+			where: { id, userId },
 		})
 
 		return res.json({

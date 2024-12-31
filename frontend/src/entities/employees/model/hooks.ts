@@ -21,7 +21,7 @@ export const useGetEmployees = (search?: string) => {
 
 export const useAddEmployeeMutation = (
 	onSuccess?: () => void,
-	onError?: (err: string) => void,
+	onError?: (err: RequestError['errors']) => void,
 ) => {
 	const client = useQueryClient()
 
@@ -32,10 +32,8 @@ export const useAddEmployeeMutation = (
 			onSuccess?.()
 		},
 		onError: (err: AxiosError<RequestError>) => {
-			console.log(err.response)
-			if (err.response?.data.error) {
-				console.log(err)
-				onError?.('error')
+			if (err.response?.data.errors) {
+				onError?.(err.response?.data.errors)
 			}
 		},
 	})
