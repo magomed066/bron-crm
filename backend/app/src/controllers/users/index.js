@@ -117,3 +117,23 @@ export const getAllEmployees = async (req, res) => {
 		res.status(500).json(generateError('Не удалось получить сотрудников'))
 	}
 }
+
+export const updateEmployeeBranch = async (req, res) => {
+	try {
+		const { id, branchId } = req.body
+
+		if (!id || !branchId) {
+			return res
+				.status(404)
+				.json(generateError('Не удалось изменить филиал сотрудника'))
+		}
+
+		await User.update({ branchId }, { where: { id } })
+
+		return res.json({
+			success: true,
+		})
+	} catch (error) {
+		res.status(500).json(generateError('Не удалось получить сотрудников'))
+	}
+}
