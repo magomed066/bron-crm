@@ -17,6 +17,9 @@ export const TableContainer = <T, K extends keyof T>({
 	emptyMessageLinkText,
 	isEnableLink = true,
 	onRowDoubleClick,
+	onChangePagination,
+	activePage,
+	paginationTotal,
 }: TableProps<T, K>) => {
 	if (isLoading) {
 		return <Skeleton />
@@ -35,10 +38,6 @@ export const TableContainer = <T, K extends keyof T>({
 	}
 
 	return (
-		// <div className="flex flex-col w-full">
-		// <div className="overflow-x-auto">
-		// <div className="w-full inline-block align-middle">
-
 		<div className="overflow-hidden">
 			<Table
 				columns={columns}
@@ -48,10 +47,10 @@ export const TableContainer = <T, K extends keyof T>({
 				onRowDoubleClick={onRowDoubleClick}
 				rowContextMenu={contextMenu}
 				loadMore={loadMore}
+				onChangePagination={onChangePagination}
+				activePage={activePage}
+				paginationTotal={paginationTotal}
 			/>
 		</div>
-		// </div>
-		// </div>
-		// </div>
 	)
 }

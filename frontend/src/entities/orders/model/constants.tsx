@@ -5,7 +5,8 @@ import { ColumnDef } from '@tanstack/react-table'
 import clsx from 'clsx'
 
 export const ordersQueryKeys = {
-	allOrders: (param?: string) => (param ? ['allOrders', param] : ['allOrders']),
+	allOrders: (search?: string, page?: number) =>
+		search ? ['allOrders', search, page] : ['allOrders', page],
 	getOrderById: (id: string) => ['getOrderById', id],
 }
 

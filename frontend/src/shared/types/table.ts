@@ -20,4 +20,7 @@ export interface TableProps<T, K extends keyof T> {
 	emptyMessageLink?: string
 	emptyMessageLinkText?: string
 	isEnableLink?: boolean
+	onChangePagination?: (value: number) => void
+	activePage?: number
+	paginationTotal?: number
 }

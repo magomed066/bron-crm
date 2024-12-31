@@ -1,12 +1,14 @@
 import { AxiosResponse } from 'axios'
 import { apiService } from '../../base'
-import { CreateOrder, Order, UpdatedOrder } from './types'
+import { AllOrdersResponse, CreateOrder, Order, UpdatedOrder } from './types'
 
 export class OrdersService {
-	static getAll(search: string): Promise<AxiosResponse<Order[]>> {
-		return apiService.get<AxiosResponse<Order[]>>('/orders/all', {
-			params: search && {
-				search,
+	static getAll(search: string, page: number): Promise<AllOrdersResponse> {
+		return apiService.get<AllOrdersResponse>('/orders/all', {
+			params: {
+				...(search && { search }),
+				page,
+				limit: 10,
 			},
 		})
 	}

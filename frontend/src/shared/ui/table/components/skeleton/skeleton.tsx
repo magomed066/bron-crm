@@ -6,7 +6,23 @@ export const Skeleton = () => {
 			<div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
 			<div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
 			<div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
-			<div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700" />
+			<div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
+			<div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
+			<div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
+			<div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
+			<div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
+			<div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
+			<div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
+			<div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
+			<div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
+			<div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
+			<div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
+			<div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
+			<div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
+			<div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
+			<div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
+			<div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
+			<div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
 			<span className="sr-only">Loading...</span>
 		</div>
 	)
