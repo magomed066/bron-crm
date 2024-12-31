@@ -53,11 +53,18 @@ export const getAllOrder = async (req, res) => {
 	try {
 		const userId = req.userId
 		const isAdmin = req.isAdmin
-		const { search } = req.query
+		const { search, page = 1, limit = 20 } = req.query // Extract page and limit from query
 
 		const whereClause = {
-			...(!isAdmin && userId && { userId }),
+			...(!isAdmin &&
+				userId && {
+					userId,
+					deleted: {
+						[Op.not]: true,
+					},
+				}),
 		}
+
 		if (search) {
 			whereClause[Op.or] = [
 				{ product: { [Op.like]: `%${search}%` } },
@@ -80,29 +87,31 @@ export const getAllOrder = async (req, res) => {
 			{ model: Category, as: 'category' },
 		]
 
-		if (isAdmin) {
-			const orders = await Order.findAll({
-				where: whereClause,
-				include: includingModels,
-			})
+		// Calculate offset
+		const offset = (page - 1) * limit
 
-			return res.status(200).json({
-				success: true,
-				data: orders,
-			})
-		}
+		// Get total count of orders
+		const totalOrders = await Order.count({
+			where: whereClause,
+		})
 
-		if (!isAdmin && userId) {
-			const orders = await Order.findAll({
-				where: whereClause,
-				include: includingModels,
-			})
+		// Fetch paginated orders
+		const orders = await Order.findAll({
+			where: whereClause,
+			include: includingModels,
+			order: [['createdAt', 'desc']],
+			limit: parseInt(limit, 10), // Ensure limit is an integer
+			offset: parseInt(offset, 10), // Ensure offset is an integer
+		})
 
-			return res.status(200).json({
-				success: true,
-				data: orders,
-			})
-		}
+		return res.status(200).json({
+			success: true,
+			data: orders,
+			total: totalOrders, // Include total count of orders
+			page: parseInt(page, 10), // Return the current page
+			limit: parseInt(limit, 10), // Return the limit
+			totalPages: Math.ceil(totalOrders / limit), // Calculate total pages
+		})
 	} catch (error) {
 		res.status(500).json(generateError('Не удалось получить заказы'))
 	}
@@ -153,5 +162,26 @@ export const updatedOrder = async (req, res) => {
 		})
 	} catch (error) {
 		res.status(500).json(generateError('Не удалось обновить заказ'))
+	}
+}
+
+export const deleteOrder = async (req, res) => {
+	try {
+		const { id } = req.params
+
+		await Order.update(
+			{ deleted: true },
+			{
+				where: {
+					id,
+				},
+			},
+		)
+
+		return res.json({
+			success: true,
+		})
+	} catch (error) {
+		res.status(500).json(generateError('Не удалось удалить заказ'))
 	}
 }

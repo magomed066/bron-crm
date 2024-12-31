@@ -22,6 +22,9 @@ const Order = sequelize.define('order', {
 	isGuarantee: {
 		type: DataTypes.BOOLEAN,
 	},
+	deleted: {
+		type: DataTypes.BOOLEAN,
+	},
 	branchId: {
 		type: DataTypes.INTEGER,
 		allowNull: false,
