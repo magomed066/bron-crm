@@ -2,6 +2,7 @@ import { Skeleton } from './components/skeleton'
 import { EmptyData } from './components/empty-data'
 import { Table } from './components/table'
 import { TableProps } from '@/shared/types/table'
+import { Pagination } from '@mantine/core'
 
 export const TableContainer = <T, K extends keyof T>({
 	data,
@@ -51,6 +52,16 @@ export const TableContainer = <T, K extends keyof T>({
 				activePage={activePage}
 				paginationTotal={paginationTotal}
 			/>
+
+			{pagination && (
+				<Pagination
+					mt={16}
+					total={paginationTotal || 0}
+					value={activePage}
+					onChange={onChangePagination}
+					color="primaryColor"
+				/>
+			)}
 		</div>
 	)
 }

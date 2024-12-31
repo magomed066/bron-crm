@@ -5,19 +5,15 @@ import { useContextTableMenu, useTable } from '../../hooks'
 import { ContextMenu } from '../context-menu'
 import { TableBody } from '../table-body'
 import { TableHead } from '../table-head'
-import { Pagination } from '@mantine/core'
 
 export const Table = <T, K extends keyof T>({
 	data = [],
 	columns = [],
 	className,
-	pagination,
+
 	rowContextMenu,
 	onRowClick,
 	onRowDoubleClick,
-	paginationTotal,
-	onChangePagination,
-	activePage,
 }: TableProps<T, K>) => {
 	const [globalFilter, setGlobalFilter] = useState('')
 
@@ -56,16 +52,6 @@ export const Table = <T, K extends keyof T>({
 				items={rowContextMenu}
 				row={row}
 			/>
-
-			{pagination && (
-				<Pagination
-					mt={16}
-					total={paginationTotal || 0}
-					value={activePage}
-					onChange={onChangePagination}
-					color="primaryColor"
-				/>
-			)}
 		</div>
 	)
 }
