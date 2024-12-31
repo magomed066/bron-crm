@@ -32,3 +32,7 @@ export type UpdateEmployeeBranch = {
 	newPassword: string
 	oldPassword: string
 }
+
+export type UpdatePasswordResponse = {
+	success: boolean
+}

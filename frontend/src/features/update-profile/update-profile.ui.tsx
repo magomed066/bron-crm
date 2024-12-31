@@ -9,7 +9,17 @@ import { notifications } from '@mantine/notifications'
 export const UpdateProfileFeature = () => {
 	const { user, setUser } = useUserStore()
 
-	const { mutateAsync, isPending } = useUpdateProfileMutation()
+	const { mutateAsync, isPending } = useUpdateProfileMutation(
+		() => {},
+		(err) => {
+			notifications.show({
+				color: 'red',
+				autoClose: 2500,
+				title: 'Профиль',
+				message: err.map((el) => el.message).join(','),
+			})
+		},
+	)
 
 	const form = useForm<UpdateUser>({
 		mode: 'uncontrolled',
@@ -30,11 +40,11 @@ export const UpdateProfileFeature = () => {
 					value,
 				),
 			firstName: (value) =>
-				isValid([requiredValidate('Пароль не может быть пустым')], value),
+				isValid([requiredValidate('Поле не может быть пустым')], value),
 			lastName: (value) =>
-				isValid([requiredValidate('Пароль не может быть пустым')], value),
+				isValid([requiredValidate('Поле не может быть пустым')], value),
 			phone: (value) =>
-				isValid([requiredValidate('Пароль не может быть пустым')], value),
+				isValid([requiredValidate('Поле не может быть пустым')], value),
 		},
 	})
 

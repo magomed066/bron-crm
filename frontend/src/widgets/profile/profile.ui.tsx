@@ -1,13 +1,6 @@
+import { UpdatePasswordFeature } from '@/features/update-password'
 import { UpdateProfileFeature } from '@/features/update-profile'
-import {
-	Button,
-	Card,
-	Divider,
-	Grid,
-	GridCol,
-	PasswordInput,
-	Title,
-} from '@mantine/core'
+import { Card, Divider, Title } from '@mantine/core'
 
 export const ProfileWidget = () => {
 	return (
@@ -23,21 +16,7 @@ export const ProfileWidget = () => {
 				Сменить пароль
 			</Title>
 
-			<Grid>
-				<GridCol span={3}>
-					<PasswordInput placeholder="Старый пароль" />
-				</GridCol>
-				<GridCol span={3}>
-					<PasswordInput placeholder="Новый пароль" />
-				</GridCol>
-				<GridCol span={3}>
-					<PasswordInput placeholder="Подтвердите пароль" />
-				</GridCol>
-			</Grid>
-
-			<Button w={150} mt={24} variant="light">
-				Сменить
-			</Button>
+			<UpdatePasswordFeature />
 		</Card>
 	)
 }
