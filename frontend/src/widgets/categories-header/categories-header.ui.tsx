@@ -1,5 +1,5 @@
-import { ActionIcon, Box, Flex, Title } from '@mantine/core'
-import { FaPlus } from 'react-icons/fa'
+import { AddCategoryFeature } from '@/features/add-category'
+import { Box, Flex, Title } from '@mantine/core'
 
 export const CategoriesHeaderWidget = () => {
 	return (
@@ -9,9 +9,7 @@ export const CategoriesHeaderWidget = () => {
 					Категории
 				</Title>
 
-				<ActionIcon variant="default" size={32} color="gray">
-					<FaPlus />
-				</ActionIcon>
+				<AddCategoryFeature />
 			</Flex>
 		</Box>
 	)

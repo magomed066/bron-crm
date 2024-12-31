@@ -56,3 +56,24 @@ export const useUpdateCategory = (
 		},
 	})
 }
+
+export const useAddCategory = (
+	onSuccess?: () => void,
+	onError?: (errors: RequestError['errors']) => void,
+) => {
+	const client = useQueryClient()
+
+	return useMutation({
+		mutationFn: (name: string) => CategoriesService.add(name),
+		onSuccess: () => {
+			client.invalidateQueries({ queryKey: categoriesQueryKeys.all() })
+			onSuccess?.()
+		},
+		onError: (err: AxiosError<RequestError>) => {
+			console.log(err.response)
+			if (err.response?.data.errors) {
+				onError?.(err.response.data.errors)
+			}
+		},
+	})
+}
