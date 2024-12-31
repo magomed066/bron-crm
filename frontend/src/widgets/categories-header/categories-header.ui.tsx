@@ -3,7 +3,7 @@ import { FaPlus } from 'react-icons/fa'
 
 export const CategoriesHeaderWidget = () => {
 	return (
-		<Box className="bg-white border-b border-b-gray-50 pl-7 py-5">
+		<Box>
 			<Flex align="center" gap={16}>
 				<Title order={3} c="dark">
 					Категории

@@ -1,8 +1,9 @@
 import { Category } from '@/shared/api/services'
-import { ReactElement } from 'react'
+import { ReactElement, ReactNode } from 'react'
 
 export type Props = {
-	data: Category[]
+	data: Category
 	onEditClick?: (data: Category) => void
-	actions?: ReactElement[]
+	deleteAction?: ReactElement
+	editAction?: ReactNode
 }

@@ -12,4 +12,8 @@ export class CategoriesService {
 			`/categories/delete/${id}`,
 		)
 	}
+
+	static update(data: { id: number; name: string }) {
+		return apiService.post(`/categories/update`, data)
+	}
 }
