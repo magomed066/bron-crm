@@ -95,3 +95,22 @@ export const deleteBranchById = async (req, res) => {
 		res.status(500).json(generateError('Не удалось удалить филиал'))
 	}
 }
+
+export const updateBranch = async (req, res) => {
+	try {
+		const { id, name, address } = req.body
+
+		await Branch.update(
+			{ name, address },
+			{
+				where: { id },
+			},
+		)
+
+		return res.status(200).json({
+			success: true,
+		})
+	} catch (error) {
+		res.status(500).json(generateError('Не удалось обновить филиал'))
+	}
+}
