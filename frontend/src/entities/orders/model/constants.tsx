@@ -4,9 +4,26 @@ import { Tooltip } from '@mantine/core'
 import { ColumnDef } from '@tanstack/react-table'
 import clsx from 'clsx'
 
+// export const ordersQueryKeys = {
+// 	allOrders: (search?: string, page?: number) =>
+// 		search ? ['allOrders', search, page] : ['allOrders', page],
+// 	getOrderById: (id: string) => ['getOrderById', id],
+// }
+
 export const ordersQueryKeys = {
-	allOrders: (search?: string, page?: number) =>
-		search ? ['allOrders', search, page] : ['allOrders', page],
+	allOrders: (
+		search?: string,
+		page?: number,
+		filters?: Record<string, string>,
+	) => {
+		// Create a base key
+		const key = ['allOrders', search, page]
+
+		// Add any additional filters to the key
+		return filters
+			? [...key, ...Object.entries(filters).flatMap(([k, v]) => [k, v])]
+			: key
+	},
 	getOrderById: (id: string) => ['getOrderById', id],
 }
 

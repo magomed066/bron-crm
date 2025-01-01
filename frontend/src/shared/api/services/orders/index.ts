@@ -3,12 +3,17 @@ import { apiService } from '../../base'
 import { AllOrdersResponse, CreateOrder, Order, UpdatedOrder } from './types'
 
 export class OrdersService {
-	static getAll(search: string, page: number): Promise<AllOrdersResponse> {
+	static getAll(
+		search: string,
+		page: number,
+		params: Record<string, string | number>,
+	): Promise<AllOrdersResponse> {
 		return apiService.get<AllOrdersResponse>('/orders/all', {
 			params: {
 				...(search && { search }),
 				page,
 				limit: 10,
+				...params,
 			},
 		})
 	}

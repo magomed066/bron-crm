@@ -6,8 +6,8 @@ import { useQueryParams } from '@/shared/lib/hooks'
 
 export const SearchOrderFeature = () => {
 	const { setQueryParams, removeQueryParam, getQueryParam } = useQueryParams()
-	const defaultQuery = getQueryParam('search')
-	const [query, setQuery] = useState(defaultQuery || '')
+	const defaultQuery = getQueryParam('search') || ''
+	const [query, setQuery] = useState(defaultQuery)
 
 	const [debouncedValue] = useDebouncedValue(query, 1000)
 
@@ -31,6 +31,7 @@ export const SearchOrderFeature = () => {
 	return (
 		<Input
 			placeholder="Поиск заказа..."
+			defaultValue={defaultQuery}
 			value={query}
 			onChange={handleChange}
 			leftSection={<CiSearch />}

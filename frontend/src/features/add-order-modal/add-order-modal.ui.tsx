@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useGetCategories } from '@/entities/categories'
 import { useGetLayouts } from '@/entities/layouts'
 import { useGetMaterials } from '@/entities/materials'
-import { useCreateOrderMutation } from '@/entities/orders'
+import { ordersQueryKeys, useCreateOrderMutation } from '@/entities/orders'
 import { CreateOrder } from '@/shared/api/services'
 import { ModalType } from '@/shared/lib/config'
 import {
@@ -25,11 +25,18 @@ import {
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { notifications } from '@mantine/notifications'
+import { useQueryClient } from '@tanstack/react-query'
+import { useQueryParams } from '@/shared/lib/hooks'
 
 export const AddOrderModalFeature = () => {
 	const { handleClose } = useModal({
 		type: ModalType.ADD_ORDER,
 	})
+
+	const client = useQueryClient()
+
+	const { getQueryParam } = useQueryParams()
+	const ordersPageQuery = getQueryParam('ordersPage')
 
 	const { isFetching, materials } = useGetMaterials()
 	const { isFetching: categoriesLoading, categories } = useGetCategories()
@@ -61,6 +68,11 @@ export const AddOrderModalFeature = () => {
 
 	const { mutate, isPending } = useCreateOrderMutation(() => {
 		handleClose()
+
+		client.invalidateQueries({
+			queryKey: ordersQueryKeys.allOrders('', Number(ordersPageQuery)),
+		})
+
 		notifications.show({
 			color: 'green',
 			autoClose: 2500,
