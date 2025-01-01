@@ -43,6 +43,17 @@ export const useQueryParams = () => {
 		setSearchParams(searchString)
 	}
 
+	const removeQueryParams = <K extends keyof QueryParams>(keys: K[]) => {
+		const currentParams = getQueryParams()
+
+		keys.forEach((key) => {
+			delete currentParams[key]
+		})
+
+		const searchString = qs.stringify(currentParams, { addQueryPrefix: true })
+		setSearchParams(searchString)
+	}
+
 	const setCommaSeparatedParams = <K extends keyof QueryParams>(
 		params: Record<K, string[]>,
 	) => {
@@ -62,6 +73,7 @@ export const useQueryParams = () => {
 		setQueryParams,
 		getQueryParam,
 		removeQueryParam,
+		removeQueryParams,
 		setCommaSeparatedParams,
 	}
 }

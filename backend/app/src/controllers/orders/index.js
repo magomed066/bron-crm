@@ -66,9 +66,9 @@ export const getAllOrder = async (req, res) => {
 
 		const whereClause = {
 			...(!isAdmin && userId ? { userId, deleted: { [Op.not]: true } } : {}),
-			...(categoryId ? { categoryId } : {}),
-			...(materialId ? { materialId } : {}),
-			...(layoutId ? { layoutId } : {}),
+			...(categoryId ? { categoryId: { [Op.eq]: categoryId } } : {}),
+			...(materialId ? { materialId: { [Op.eq]: materialId } } : {}),
+			...(layoutId ? { layoutId: { [Op.eq]: layoutId } } : {}),
 		}
 
 		// Add price filter if priceFrom or priceTo is provided
@@ -113,9 +113,12 @@ export const getAllOrder = async (req, res) => {
 		const orders = await Order.findAll({
 			where: whereClause,
 			include: includingModels,
-			order: [['createdAt', 'desc']],
-			limit: parseInt(limit, 10), // Ensure limit is an integer
-			offset: parseInt(offset, 10), // Ensure offset is an integer
+			order: [
+				['createdAt', 'DESC'],
+				['id', 'DESC'],
+			],
+			limit: parseInt(limit, 10) || 10, // Ensure limit is an integer
+			offset: parseInt(offset, 10) || 0, // Ensure offset is an integer
 		})
 
 		return res.status(200).json({

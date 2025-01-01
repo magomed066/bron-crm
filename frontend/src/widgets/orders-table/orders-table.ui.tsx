@@ -12,13 +12,20 @@ export const OrdersTableWidget = () => {
 	const { getQueryParam, setQueryParams, removeQueryParam } = useQueryParams()
 	const searchQuery = getQueryParam('search')
 	const ordersPageQuery = getQueryParam('ordersPage')
+	const categoryIdQuery = getQueryParam('categoryId')
+	const materialIdQuery = getQueryParam('materialId')
+	const layoutIdQuery = getQueryParam('layoutId')
 	const [currentPage, setCurrentPage] = useState(
 		ordersPageQuery ? Number(ordersPageQuery) : 1,
 	)
-	const { orders, totalPages, isFetching } = useGetOrders(
-		searchQuery,
-		currentPage,
-	)
+	const { orders, totalPages, isFetching } = useGetOrders({
+		page: currentPage,
+		search: searchQuery,
+		...(categoryIdQuery && { categoryId: Number(categoryIdQuery) }),
+		...(materialIdQuery && { materialId: Number(materialIdQuery) }),
+		...(layoutIdQuery && { layoutId: Number(layoutIdQuery) }),
+	})
+
 	const { setDrawOpened, drawOpened } = useOrderStore()
 
 	const handleClose = () => {

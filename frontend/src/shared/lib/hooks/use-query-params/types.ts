@@ -11,5 +11,7 @@ export type QueryParams = {
 	searchProductQuery?: string
 	orderRestaurantId?: string
 	orderHistoryDate?: string
+	materialId?: string
+	layoutId?: string
 	// [key: string]: string | undefined;
 }
