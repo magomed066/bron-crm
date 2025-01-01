@@ -17,6 +17,8 @@ export const useOrdersFilters = () => {
 	const categoryIdQuery = getQueryParam('categoryId') || null
 	const materialIdQuery = getQueryParam('materialId') || null
 	const layoutIdQuery = getQueryParam('layoutId') || null
+	const priceFromQuery = getQueryParam('priceFrom') || null
+	const priceToQuery = getQueryParam('priceTo') || null
 
 	const defaultQuery = getQueryParam('search') || ''
 
@@ -38,6 +40,16 @@ export const useOrdersFilters = () => {
 	)
 	const [layoutsFilter, setLayoutsFilter] = useState<null | string>(
 		layoutIdQuery,
+	)
+	const [priceFilter, setPriceFilter] = useState({
+		priceFrom: priceFromQuery,
+		priceTo: priceToQuery,
+	})
+
+	const [debouncedPriceToValue] = useDebouncedValue(priceFilter.priceTo, 1000)
+	const [debouncedPriceFromValue] = useDebouncedValue(
+		priceFilter.priceFrom,
+		1000,
 	)
 
 	const mappedMaterials = useMemo(() => {
@@ -104,6 +116,17 @@ export const useOrdersFilters = () => {
 		setCategoriesFilter(null)
 		setLayoutsFilter(null)
 		setMaterialsFilter(null)
+		setPriceFilter({
+			priceFrom: '',
+			priceTo: '',
+		})
+	}
+
+	const handlePrice = (
+		key: 'priceFrom' | 'priceTo',
+		value: string | number,
+	) => {
+		setPriceFilter((prev) => ({ ...prev, [key]: value }))
 	}
 
 	useEffect(() => {
@@ -116,6 +139,28 @@ export const useOrdersFilters = () => {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [debouncedValue])
+
+	useEffect(() => {
+		if (debouncedPriceToValue) {
+			setQueryParams({
+				priceTo: debouncedPriceToValue,
+			})
+		} else {
+			removeQueryParam('priceTo')
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [debouncedPriceToValue])
+
+	useEffect(() => {
+		if (debouncedPriceFromValue) {
+			setQueryParams({
+				priceFrom: debouncedPriceFromValue,
+			})
+		} else {
+			removeQueryParam('priceFrom')
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [debouncedPriceFromValue])
 
 	useEffect(() => {
 		if (!defaultQuery) {
@@ -131,8 +176,11 @@ export const useOrdersFilters = () => {
 		layoutsFilter,
 		categoriesFilter,
 		query,
+		priceFilter,
 
+		handlePrice,
 		setQuery,
+		setPriceFilter,
 		handleChange,
 		handleReset,
 		handleCategories,

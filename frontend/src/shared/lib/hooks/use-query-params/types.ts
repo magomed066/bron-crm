@@ -13,5 +13,7 @@ export type QueryParams = {
 	orderHistoryDate?: string
 	materialId?: string
 	layoutId?: string
+	priceFrom?: string
+	priceTo?: string
 	// [key: string]: string | undefined;
 }
