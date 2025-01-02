@@ -38,18 +38,21 @@ export const OrdersFiltersFeature = () => {
 					</Box>
 
 					<Select
+						clearable
 						placeholder="Категория"
 						data={mappedCategories}
 						value={categoriesFilter}
 						onChange={handleCategories}
 					/>
 					<Select
+						clearable
 						placeholder="Материалы"
 						data={mappedMaterials}
 						value={materialsFilter}
 						onChange={handleMaterials}
 					/>
 					<Select
+						clearable
 						placeholder="Оформление"
 						data={mappedLayouts}
 						value={layoutsFilter}
@@ -76,6 +79,7 @@ export const OrdersFiltersFeature = () => {
 							placeholder="Гарантия"
 							value={isGuaranteeFilter}
 							onChange={handleIsGuarantee}
+							clearable
 							data={[
 								{ value: 'false', label: 'Снято с гарантии' },
 								{ value: 'true', label: 'На гарантии' },
