@@ -19,6 +19,7 @@ export const useOrdersFilters = () => {
 	const layoutIdQuery = getQueryParam('layoutId') || null
 	const priceFromQuery = getQueryParam('priceFrom') || null
 	const priceToQuery = getQueryParam('priceTo') || null
+	const isGuaranteeQuery = getQueryParam('isGuarantee') || null
 
 	const defaultQuery = getQueryParam('search') || ''
 
@@ -40,6 +41,9 @@ export const useOrdersFilters = () => {
 	)
 	const [layoutsFilter, setLayoutsFilter] = useState<null | string>(
 		layoutIdQuery,
+	)
+	const [isGuaranteeFilter, setIsGuaranteeFilter] = useState<null | string>(
+		isGuaranteeQuery,
 	)
 	const [priceFilter, setPriceFilter] = useState({
 		priceFrom: priceFromQuery,
@@ -85,6 +89,7 @@ export const useOrdersFilters = () => {
 
 		removeQueryParam('materialId')
 	}
+
 	const handleCategories = (value: string | null) => {
 		setCategoriesFilter(value)
 
@@ -111,11 +116,31 @@ export const useOrdersFilters = () => {
 		removeQueryParam('layoutId')
 	}
 
+	const handleIsGuarantee = (value: string | null) => {
+		setIsGuaranteeFilter(value)
+
+		if (value) {
+			setQueryParams({
+				isGuarantee: value,
+			})
+			return
+		}
+
+		removeQueryParam('isGuarantee')
+	}
+
 	const handleReset = () => {
-		removeQueryParams(['categoryId', 'materialId', 'layoutId', 'search'])
+		removeQueryParams([
+			'categoryId',
+			'materialId',
+			'layoutId',
+			'search',
+			'isGuarantee',
+		])
 		setCategoriesFilter(null)
 		setLayoutsFilter(null)
 		setMaterialsFilter(null)
+		setIsGuaranteeFilter(null)
 		setPriceFilter({
 			priceFrom: '',
 			priceTo: '',
@@ -177,6 +202,7 @@ export const useOrdersFilters = () => {
 		categoriesFilter,
 		query,
 		priceFilter,
+		isGuaranteeFilter,
 
 		handlePrice,
 		setQuery,
@@ -186,5 +212,6 @@ export const useOrdersFilters = () => {
 		handleCategories,
 		handleLayouts,
 		handleMaterials,
+		handleIsGuarantee,
 	}
 }

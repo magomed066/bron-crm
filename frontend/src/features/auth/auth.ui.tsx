@@ -55,7 +55,7 @@ export const AuthFormFeature = () => {
 
 	useEffect(() => {
 		if (accessToken) {
-			navigate(routes.orders)
+			navigate(`${routes.orders}?ordersPage=1`)
 		}
 	}, [accessToken, navigate])
 

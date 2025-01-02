@@ -14,6 +14,8 @@ export const OrdersFiltersFeature = () => {
 		materialsFilter,
 		layoutsFilter,
 		priceFilter,
+		isGuaranteeFilter,
+		handleIsGuarantee,
 		handleMaterials,
 		handlePrice,
 		handleCategories,
@@ -68,6 +70,16 @@ export const OrdersFiltersFeature = () => {
 							onChange={(e) => handlePrice('priceTo', e)}
 							placeholder="Цена до"
 							thousandSeparator=" "
+						/>
+
+						<Select
+							placeholder="Гарантия"
+							value={isGuaranteeFilter}
+							onChange={handleIsGuarantee}
+							data={[
+								{ value: 'false', label: 'Снято с гарантии' },
+								{ value: 'true', label: 'На гарантии' },
+							]}
 						/>
 					</Flex>
 					<Button variant="light" onClick={handleReset}>

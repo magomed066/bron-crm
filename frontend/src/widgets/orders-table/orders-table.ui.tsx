@@ -17,6 +17,7 @@ export const OrdersTableWidget = () => {
 	const layoutIdQuery = getQueryParam('layoutId')
 	const priceFromQuery = getQueryParam('priceFrom')
 	const priceToQuery = getQueryParam('priceTo')
+	const isGuaranteeQuery = getQueryParam('isGuarantee') || null
 	const [currentPage, setCurrentPage] = useState(
 		ordersPageQuery ? Number(ordersPageQuery) : 1,
 	)
@@ -28,6 +29,7 @@ export const OrdersTableWidget = () => {
 		...(layoutIdQuery && { layoutId: Number(layoutIdQuery) }),
 		...(priceFromQuery && { priceFrom: Number(priceFromQuery) }),
 		...(priceToQuery && { priceTo: Number(priceToQuery) }),
+		...(isGuaranteeQuery && { isGuarantee: isGuaranteeQuery }),
 	})
 
 	const { setDrawOpened, drawOpened } = useOrderStore()
