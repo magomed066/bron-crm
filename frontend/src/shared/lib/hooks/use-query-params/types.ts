@@ -13,5 +13,8 @@ export type QueryParams = {
 	orderHistoryDate?: string
 	materialId?: string
 	layoutId?: string
+	priceFrom?: string
+	priceTo?: string
+	isGuarantee?: string
 	// [key: string]: string | undefined;
 }

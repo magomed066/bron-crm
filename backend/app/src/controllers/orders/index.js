@@ -62,13 +62,21 @@ export const getAllOrder = async (req, res) => {
 			layoutId,
 			priceFrom,
 			priceTo,
+			isGuarantee,
 		} = req.query // Extract query parameters
+
+		const isGuaranteeValue =
+			isGuarantee === 'true' ? 1 : isGuarantee === 'false' ? 0 : undefined
 
 		const whereClause = {
 			...(!isAdmin && userId ? { userId, deleted: { [Op.not]: true } } : {}),
 			...(categoryId ? { categoryId: { [Op.eq]: categoryId } } : {}),
 			...(materialId ? { materialId: { [Op.eq]: materialId } } : {}),
 			...(layoutId ? { layoutId: { [Op.eq]: layoutId } } : {}),
+			...(layoutId ? { layoutId: { [Op.eq]: layoutId } } : {}),
+			...(isGuaranteeValue !== undefined
+				? { isGuarantee: { [Op.eq]: isGuaranteeValue } }
+				: {}),
 		}
 
 		// Add price filter if priceFrom or priceTo is provided
