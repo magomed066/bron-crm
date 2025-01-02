@@ -3,6 +3,7 @@ import { RiRestartLine } from 'react-icons/ri'
 import { Box, Button, Flex, Input, NumberInput, Select } from '@mantine/core'
 import { CiSearch } from 'react-icons/ci'
 import { useOrdersFilters } from './hooks/filters'
+import clsx from 'clsx'
 
 export const OrdersFiltersFeature = () => {
 	const {
@@ -15,6 +16,7 @@ export const OrdersFiltersFeature = () => {
 		layoutsFilter,
 		priceFilter,
 		isGuaranteeFilter,
+		isActiveReset,
 		handleIsGuarantee,
 		handleMaterials,
 		handlePrice,
@@ -86,8 +88,18 @@ export const OrdersFiltersFeature = () => {
 							]}
 						/>
 					</Flex>
-					<Button variant="light" onClick={handleReset}>
-						<RiRestartLine className="text-blue-500 mr-2" size={16} />
+					<Button
+						variant="light"
+						onClick={handleReset}
+						disabled={!isActiveReset}
+					>
+						<RiRestartLine
+							className={clsx(
+								'mr-2',
+								isActiveReset ? 'text-blue-500' : 'text-gray-400',
+							)}
+							size={16}
+						/>
 						Сбросить
 					</Button>
 				</Flex>

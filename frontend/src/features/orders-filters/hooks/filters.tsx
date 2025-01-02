@@ -77,6 +77,26 @@ export const useOrdersFilters = () => {
 		return []
 	}, [layouts])
 
+	const isActiveReset = useMemo(() => {
+		return (
+			isGuaranteeFilter ||
+			materialsFilter ||
+			layoutsFilter ||
+			categoriesFilter ||
+			query ||
+			priceFilter.priceFrom ||
+			priceFilter.priceTo
+		)
+	}, [
+		isGuaranteeFilter,
+		materialsFilter,
+		layoutsFilter,
+		categoriesFilter,
+		query,
+		priceFilter.priceFrom,
+		priceFilter.priceTo,
+	])
+
 	const handleMaterials = (value: string | null) => {
 		setMaterialsFilter(value)
 
@@ -203,6 +223,7 @@ export const useOrdersFilters = () => {
 		query,
 		priceFilter,
 		isGuaranteeFilter,
+		isActiveReset,
 
 		handlePrice,
 		setQuery,
