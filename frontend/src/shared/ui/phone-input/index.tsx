@@ -7,6 +7,8 @@ export const PhoneInput: FC<Props> = ({
 	label,
 	placeholder,
 	required,
+	value,
+	onChange,
 	...rest
 }) => {
 	return (
@@ -14,7 +16,9 @@ export const PhoneInput: FC<Props> = ({
 			label={label}
 			component={IMaskInput}
 			mask="+7 (000) 000-00-00"
+			value={value}
 			placeholder={placeholder}
+			onChange={(e) => onChange?.(e.currentTarget.value)}
 			required={required}
 			{...rest}
 		/>
