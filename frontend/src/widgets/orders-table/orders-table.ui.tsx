@@ -5,10 +5,8 @@ import { Box, Flex } from '@mantine/core'
 import { OrderInfoWidget } from '../order-info/order-info.ui'
 import { Order } from '@/shared/api/services'
 import { useState } from 'react'
-import { useUserStore } from '@/entities/auth'
 
 export const OrdersTableWidget = () => {
-	const { user } = useUserStore()
 	const { getQueryParam, setQueryParams, removeQueryParam } = useQueryParams()
 	const searchQuery = getQueryParam('search')
 	const ordersPageQuery = getQueryParam('ordersPage')
@@ -42,12 +40,10 @@ export const OrdersTableWidget = () => {
 	}
 
 	const handleRowClick = (data: Order) => {
-		if (!user?.isAdmin) {
-			setQueryParams({
-				orderId: String(data.id),
-			})
-			setDrawOpened(true)
-		}
+		setQueryParams({
+			orderId: String(data.id),
+		})
+		setDrawOpened(true)
 	}
 
 	const handleCurrentPage = (page: number) => {

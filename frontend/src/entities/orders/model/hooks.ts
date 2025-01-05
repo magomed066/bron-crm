@@ -81,3 +81,19 @@ export const useUpdateOrderMutation = (
 		},
 	})
 }
+
+export const useGetOrderHints = (query: string) => {
+	const { data, isFetching, isError } = useQuery({
+		queryKey: ordersQueryKeys.getHints(query),
+		queryFn: () => OrdersService.getHints(query),
+		refetchOnWindowFocus: true,
+		staleTime: 0,
+		enabled: Boolean(query),
+	})
+
+	return {
+		hints: data?.data,
+		isError,
+		isFetching,
+	}
+}

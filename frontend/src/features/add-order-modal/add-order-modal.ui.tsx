@@ -1,8 +1,12 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useGetCategories } from '@/entities/categories'
 import { useGetLayouts } from '@/entities/layouts'
 import { useGetMaterials } from '@/entities/materials'
-import { ordersQueryKeys, useCreateOrderMutation } from '@/entities/orders'
+import {
+	ordersQueryKeys,
+	useCreateOrderMutation,
+	useGetOrderHints,
+} from '@/entities/orders'
 import { CreateOrder } from '@/shared/api/services'
 import { ModalType } from '@/shared/lib/config'
 import {
@@ -20,13 +24,14 @@ import {
 	NumberInput,
 	Select,
 	Text,
-	TextInput,
 	Textarea,
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { notifications } from '@mantine/notifications'
 import { useQueryClient } from '@tanstack/react-query'
 import { useQueryParams } from '@/shared/lib/hooks'
+import { AsyncAutocomplete } from '@/shared/ui/autocomplete/autocomplete.ui'
+import { useDebouncedValue } from '@mantine/hooks'
 
 export const AddOrderModalFeature = () => {
 	const { handleClose } = useModal({
@@ -41,6 +46,15 @@ export const AddOrderModalFeature = () => {
 	const { isFetching, materials } = useGetMaterials()
 	const { isFetching: categoriesLoading, categories } = useGetCategories()
 	const { isFetching: layoutsLoading, layouts } = useGetLayouts()
+
+	const [productName, setProductName] = useState('')
+	const [inputValue, setInputValue] = useState('')
+	const [debouncedProductValue] = useDebouncedValue(inputValue, 1000)
+	const [empty, setEmpty] = useState(false)
+
+	const { hints, isFetching: isHintsLoading } = useGetOrderHints(
+		debouncedProductValue,
+	)
 
 	const mappedMaterials = useMemo(() => {
 		if (materials) {
@@ -111,6 +125,20 @@ export const AddOrderModalFeature = () => {
 		mutate(values)
 	})
 
+	useEffect(() => {
+		if (hints && hints.length === 0) {
+			setEmpty(true)
+		}
+	}, [hints])
+
+	useEffect(() => {
+		if (productName) {
+			form.setFieldValue('product', productName)
+		} else {
+			form.setFieldValue('product', inputValue)
+		}
+	}, [form, inputValue, productName])
+
 	return (
 		<form onSubmit={handleSubmit}>
 			<Text size="sm" c="secondaryColor">
@@ -118,11 +146,25 @@ export const AddOrderModalFeature = () => {
 			</Text>
 			<Grid mt={16} gutter={10}>
 				<Grid.Col span={6}>
-					<TextInput
-						required
+					<AsyncAutocomplete
 						label="Наименование товара"
-						key={form.key('product')}
-						{...form.getInputProps('product')}
+						data={hints || []}
+						value={productName}
+						error={form.getInputProps('product').error}
+						onSelect={(value) => {
+							setProductName(value)
+							setEmpty(false)
+						}}
+						loading={isHintsLoading}
+						empty={empty}
+						onChange={(value) => {
+							setInputValue(value)
+							setProductName(value)
+
+							if (value.trim() === '') {
+								setEmpty(true)
+							}
+						}}
 					/>
 				</Grid.Col>
 				<Grid.Col span={6}>

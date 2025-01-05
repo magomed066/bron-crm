@@ -179,10 +179,9 @@ export const getOrderById = async (req, res) => {
 export const updatedOrder = async (req, res) => {
 	try {
 		const { id, data } = req.body
-		const userId = req.userId
 
 		await Order.update(data, {
-			where: { id, userId },
+			where: { id },
 		})
 
 		return res.json({
@@ -211,5 +210,39 @@ export const deleteOrder = async (req, res) => {
 		})
 	} catch (error) {
 		res.status(500).json(generateError('Не удалось удалить заказ'))
+	}
+}
+
+export const getOrderProductHints = async (req, res) => {
+	try {
+		const { q } = req.query
+
+		if (!q || q.trim() === '') {
+			return res
+				.status(400)
+				.json(generateError('Query parameter "q" is required.'))
+		}
+
+		// Fetch only the product fields that match the query
+		const products = await Order.findAll({
+			where: {
+				product: {
+					[Op.like]: `%${q}%`, // Searches for q in the product field
+				},
+			},
+			attributes: ['product'], // Only include the product field in the result
+			group: ['product'], // Group by product to ensure uniqueness
+			limit: 20, // You can adjust the limit as needed
+		})
+
+		// Extract product values into an array
+		const productHints = products.map((order) => order.product)
+
+		res.status(200).json({
+			success: true,
+			data: productHints,
+		})
+	} catch (error) {
+		res.status(500).json(generateError('Не удалось получить подсказки'))
 	}
 }

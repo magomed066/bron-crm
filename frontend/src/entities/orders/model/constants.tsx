@@ -25,6 +25,7 @@ export const ordersQueryKeys = {
 			: key
 	},
 	getOrderById: (id: string) => ['getOrderById', id],
+	getHints: (query: string) => ['hints', query],
 }
 
 export const ordersTableConfig: ColumnDef<Order>[] = [

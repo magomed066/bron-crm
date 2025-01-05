@@ -29,9 +29,12 @@ import { useGetLayouts } from '@/entities/layouts'
 import { PhoneInput } from '@/shared/ui'
 import { useQueryParams } from '@/shared/lib/hooks'
 import { useQueryClient } from '@tanstack/react-query'
+import { useUserStore } from '@/entities/auth'
 
 export const EditOrderFeature: FC<Props> = ({ data }) => {
 	const { setDrawOpened } = useOrderStore()
+	const { user } = useUserStore()
+	const isAdmin = user?.isAdmin
 
 	const client = useQueryClient()
 
@@ -210,6 +213,7 @@ export const EditOrderFeature: FC<Props> = ({ data }) => {
 					<Switch
 						label="На гарантии"
 						checked={isGuarantee}
+						disabled={!isAdmin && !isGuarantee}
 						onChange={(e) => setIsGuarantee(e.currentTarget.checked)}
 					/>
 				</Grid.Col>
