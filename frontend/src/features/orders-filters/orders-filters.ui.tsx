@@ -10,21 +10,18 @@ export const OrdersFiltersFeature = () => {
 	const {
 		query,
 		mappedCategories,
-		mappedLayouts,
-		mappedMaterials,
+		mappedServices,
 		categoriesFilter,
-		materialsFilter,
-		layoutsFilter,
+		servicesFilter,
 		priceFilter,
 		isGuaranteeFilter,
 		isActiveReset,
 		phone,
 		handleIsGuarantee,
-		handleMaterials,
 		handlePrice,
 		handleCategories,
 		handleReset,
-		handleLayouts,
+		handleServices,
 		handleChange,
 		handleChangePhone,
 	} = useOrdersFilters()
@@ -55,19 +52,13 @@ export const OrdersFiltersFeature = () => {
 						value={categoriesFilter}
 						onChange={handleCategories}
 					/>
+
 					<Select
 						clearable
-						placeholder="Материалы"
-						data={mappedMaterials}
-						value={materialsFilter}
-						onChange={handleMaterials}
-					/>
-					<Select
-						clearable
-						placeholder="Оформление"
-						data={mappedLayouts}
-						value={layoutsFilter}
-						onChange={handleLayouts}
+						placeholder="Услуга"
+						data={mappedServices}
+						value={servicesFilter}
+						onChange={handleServices}
 					/>
 				</Flex>
 

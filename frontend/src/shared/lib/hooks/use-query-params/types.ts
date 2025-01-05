@@ -15,6 +15,7 @@ export type QueryParams = {
 	layoutId?: string
 	priceFrom?: string
 	priceTo?: string
+	serviceId?: string
 	isGuarantee?: string
 	phone?: string
 	// [key: string]: string | undefined;

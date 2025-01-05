@@ -10,7 +10,7 @@ import {
 	authRouter,
 	branchRouter,
 	categoryRouter,
-	layoutsRouter,
+	servicesRouter,
 	materialRouter,
 	orderRouter,
 } from './routes/index.js'
@@ -32,7 +32,7 @@ app.use('/api/branches', branchRouter)
 app.use('/api/orders', orderRouter)
 app.use('/api/categories', categoryRouter)
 app.use('/api/materials', materialRouter)
-app.use('/api/layouts', layoutsRouter)
+app.use('/api/services', servicesRouter)
 
 app.get('/', (req, res) => {
 	res.send(`<h1>Server is running on port: ${PORT}</h1>`)

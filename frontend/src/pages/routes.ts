@@ -5,12 +5,11 @@ import NotFoundPage from './not-found'
 const LoginPage = React.lazy(() => import('./login'))
 const OrdersPage = React.lazy(() => import('./orders'))
 const BranchesPage = React.lazy(() => import('./branches'))
-const CategoriesPage = React.lazy(() => import('./categories'))
 const UsersPage = React.lazy(() => import('./users'))
 const ProfilePage = React.lazy(() => import('./profile'))
 const EmployeesPage = React.lazy(() => import('./employees'))
-const MaterialsPage = React.lazy(() => import('./materials'))
-const LayoutsPage = React.lazy(() => import('./layouts'))
+const ServicesPage = React.lazy(() => import('./services'))
+const CategoriesPage = React.lazy(() => import('./categories'))
 
 export const publicRoutes = [
 	{
@@ -28,10 +27,7 @@ export const privateRoutes = [
 		Component: BranchesPage,
 		path: routes.branches,
 	},
-	{
-		Component: CategoriesPage,
-		path: routes.categories,
-	},
+
 	{
 		Component: UsersPage,
 		path: routes.users,
@@ -45,12 +41,12 @@ export const privateRoutes = [
 		path: routes.employees,
 	},
 	{
-		Component: MaterialsPage,
-		path: routes.materials,
+		Component: ServicesPage,
+		path: routes.services,
 	},
 	{
-		Component: LayoutsPage,
-		path: routes.layouts,
+		Component: CategoriesPage,
+		path: routes.categories,
 	},
 	{
 		Component: NotFoundPage,

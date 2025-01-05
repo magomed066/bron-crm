@@ -23,9 +23,8 @@ import {
 	useUpdateOrderMutation,
 } from '@/entities/orders'
 import { notifications } from '@mantine/notifications'
-import { useGetMaterials } from '@/entities/materials'
 import { useGetCategories } from '@/entities/categories'
-import { useGetLayouts } from '@/entities/layouts'
+import { useGetServices } from '@/entities/services'
 import { PhoneInput } from '@/shared/ui'
 import { useQueryParams } from '@/shared/lib/hooks'
 import { useQueryClient } from '@tanstack/react-query'
@@ -41,16 +40,8 @@ export const EditOrderFeature: FC<Props> = ({ data }) => {
 	const { getQueryParam } = useQueryParams()
 	const ordersPageQuery = getQueryParam('ordersPage')
 
-	const { isFetching, materials } = useGetMaterials()
 	const { isFetching: categoriesLoading, categories } = useGetCategories()
-	const { isFetching: layoutsLoading, layouts } = useGetLayouts()
-
-	const mappedMaterials = useMemo(() => {
-		if (materials) {
-			return mapDataForSelect(materials, 'name', 'id')
-		}
-		return []
-	}, [materials])
+	const { isFetching: servicesLoading, services } = useGetServices()
 
 	const mappedCategories = useMemo(() => {
 		if (categories) {
@@ -59,12 +50,12 @@ export const EditOrderFeature: FC<Props> = ({ data }) => {
 		return []
 	}, [categories])
 
-	const mappedLayouts = useMemo(() => {
-		if (layouts) {
-			return mapDataForSelect(layouts, 'name', 'id')
+	const mappedServices = useMemo(() => {
+		if (services) {
+			return mapDataForSelect(services, 'name', 'id')
 		}
 		return []
-	}, [layouts])
+	}, [services])
 
 	const { mutate, isPending } = useUpdateOrderMutation(
 		() => {
@@ -97,22 +88,18 @@ export const EditOrderFeature: FC<Props> = ({ data }) => {
 			product: data?.product || '',
 			price: data?.price || 0,
 			description: data?.description || '',
-			materialId: data?.materialId || 0,
 			categoryId: data?.categoryId || 0,
-			layoutId: data?.layoutId || 0,
+			serviceId: data?.serviceId || 0,
 			phone: data?.phone || '',
 		},
 		validate: {
 			product: (value) => isValid([requiredValidate('Заполните поле')], value),
 			price: (value) =>
 				isValid([isValidNumber('Заполните поле')], String(value)),
-			materialId: (value) =>
-				isValid([isValidNumber('Заполните поле')], String(value)),
-			layoutId: (value) =>
+			serviceId: (value) =>
 				isValid([isValidNumber('Заполните поле')], String(value)),
 			categoryId: (value) =>
 				isValid([isValidNumber('Заполните поле')], String(value)),
-
 			phone: (value) => isValid([requiredValidate('Заполните поле')], value),
 		},
 	})
@@ -128,22 +115,16 @@ export const EditOrderFeature: FC<Props> = ({ data }) => {
 	})
 
 	useEffect(() => {
-		if (mappedMaterials.length > 0) {
-			form.setFieldValue('materialId', String(data.materialId))
-		}
-	}, [mappedMaterials, data, form])
-
-	useEffect(() => {
 		if (mappedCategories.length > 0) {
 			form.setFieldValue('categoryId', String(data.categoryId))
 		}
 	}, [mappedCategories, data, form])
 
 	useEffect(() => {
-		if (mappedLayouts.length > 0) {
-			form.setFieldValue('layoutId', String(data.layoutId))
+		if (mappedServices.length > 0) {
+			form.setFieldValue('serviceId', String(data.serviceId))
 		}
-	}, [mappedLayouts, data, form])
+	}, [mappedServices, data, form])
 
 	return (
 		<form onSubmit={handleSubmit}>
@@ -163,15 +144,7 @@ export const EditOrderFeature: FC<Props> = ({ data }) => {
 						thousandSeparator=" "
 					/>
 				</Grid.Col>
-				<Grid.Col span={12}>
-					<Select
-						data={mappedMaterials}
-						disabled={isFetching}
-						label="Выберите материал"
-						key={form.key('materialId')}
-						{...form.getInputProps('materialId')}
-					/>
-				</Grid.Col>
+
 				<Grid.Col span={12}>
 					<Select
 						label="Категория"
@@ -183,11 +156,11 @@ export const EditOrderFeature: FC<Props> = ({ data }) => {
 				</Grid.Col>
 				<Grid.Col span={12}>
 					<Select
-						label="Оформление"
-						data={mappedLayouts}
-						disabled={layoutsLoading}
-						key={form.key('layoutId')}
-						{...form.getInputProps('layoutId')}
+						label="Услуга"
+						data={mappedServices}
+						disabled={servicesLoading}
+						key={form.key('serviceId')}
+						{...form.getInputProps('serviceId')}
 					/>
 				</Grid.Col>
 

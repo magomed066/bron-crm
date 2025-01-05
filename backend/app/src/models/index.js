@@ -3,6 +3,6 @@ import Branch from './branches/index.js'
 import Order from './orders/index.js'
 import Category from './categories/index.js'
 import Material from './materials/index.js'
-import Layout from './layouts/index.js'
+import Service from './service/index.js'
 
-export { User, Branch, Order, Category, Material, Layout }
+export { User, Branch, Order, Category, Material, Service }
