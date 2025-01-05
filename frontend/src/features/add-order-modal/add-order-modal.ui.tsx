@@ -132,14 +132,12 @@ export const AddOrderModalFeature = () => {
 	}, [hints])
 
 	useEffect(() => {
-		if (isHintsLoading && hints) {
-			if (productName) {
-				form.setFieldValue('product', productName)
-			} else {
-				form.setFieldValue('product', inputValue)
-			}
+		if (productName) {
+			form.setFieldValue('product', productName)
+		} else {
+			form.setFieldValue('product', inputValue)
 		}
-	}, [hints, isHintsLoading, form, inputValue, productName])
+	}, [form, inputValue, productName])
 
 	return (
 		<form onSubmit={handleSubmit}>
