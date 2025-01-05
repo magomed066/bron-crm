@@ -1,7 +1,7 @@
 import { CategoriesSkeleton, Category } from '@/entities/categories'
-import { useGetServices } from '@/entities/layouts'
+import { useGetServices } from '@/entities/services'
 import { DeleteServiceFeature } from '@/features/delete-service'
-import { UpdateServiceFeature } from '@/features/update-layout'
+import { UpdateServiceFeature } from '@/features/update-service'
 import { Box, Flex, Text } from '@mantine/core'
 
 export const ServicesContentWidget = () => {
@@ -41,7 +41,7 @@ export const ServicesContentWidget = () => {
 								data={el}
 								deleteAction={<DeleteServiceFeature serviceId={el.id} />}
 								editAction={
-									<UpdateServiceFeature layoutId={el.id} name={el.name} />
+									<UpdateServiceFeature serviceId={el.id} name={el.name} />
 								}
 							/>
 					  ))

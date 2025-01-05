@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize'
 import sequelize from '../../config/db.js'
 
-const Layout = sequelize.define('service', {
+const Service = sequelize.define('service', {
 	id: {
 		type: DataTypes.INTEGER,
 		autoIncrement: true,
@@ -12,4 +12,4 @@ const Layout = sequelize.define('service', {
 	},
 })
 
-export default Layout
+export default Service

@@ -1,6 +1,6 @@
 import { Op } from 'sequelize'
 import generateError from '../../lib/helpers/generate-error-response.js'
-import { Branch, Category, Material, Order, User } from '../../models/index.js'
+import { Branch, Category, Order, Service, User } from '../../models/index.js'
 
 export const createOrder = async (req, res) => {
 	try {
@@ -19,8 +19,8 @@ export const createOrder = async (req, res) => {
 			description,
 			userId,
 			branchId,
-			// materialId,
 			categoryId,
+			materialId: '',
 			serviceId,
 			phone: phone.replace(/[^\d+]/g, ''),
 			isGuarantee: true,
@@ -44,8 +44,6 @@ export const getAllOrder = async (req, res) => {
 			page = 1,
 			limit = 20,
 			categoryId,
-			materialId,
-			layoutId,
 			priceFrom,
 			priceTo,
 			isGuarantee,
@@ -63,8 +61,6 @@ export const getAllOrder = async (req, res) => {
 				? { userId, deleted: { [Op.not]: true } }
 				: {}),
 			...(categoryId ? { categoryId: { [Op.eq]: categoryId } } : {}),
-			...(materialId ? { materialId: { [Op.eq]: materialId } } : {}),
-			...(layoutId ? { layoutId: { [Op.eq]: layoutId } } : {}),
 			...(serviceId ? { serviceId: { [Op.eq]: serviceId } } : {}),
 			...(isGuaranteeValue !== undefined
 				? { isGuarantee: { [Op.eq]: isGuaranteeValue } }
@@ -96,8 +92,7 @@ export const getAllOrder = async (req, res) => {
 				},
 			},
 			{ model: Branch, as: 'branch' },
-			{ model: Layout, as: 'layout' },
-			{ model: Material, as: 'material' },
+			{ model: Service, as: 'service' },
 			{ model: Category, as: 'category' },
 		]
 
@@ -145,8 +140,7 @@ export const getOrderById = async (req, res) => {
 				},
 			},
 			{ model: Branch, as: 'branch' },
-			{ model: Layout, as: 'layout' },
-			{ model: Material, as: 'material' },
+			{ model: Service, as: 'service' },
 			{ model: Category, as: 'category' },
 		]
 

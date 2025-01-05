@@ -99,12 +99,12 @@ export const ordersTableConfig: ColumnDef<Order>[] = [
 	{
 		id: '6',
 		header: 'Услуга',
-		accessorKey: 'layout',
+		accessorKey: 'service',
 
 		cell: (row) => {
 			const { original } = row.cell.row
 
-			return <span>{original.layout.name}</span>
+			return <span>{original.service.name}</span>
 		},
 		maxSize: 20,
 	},

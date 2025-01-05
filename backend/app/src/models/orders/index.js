@@ -45,16 +45,7 @@ const Order = sequelize.define('order', {
 		onUpdate: 'CASCADE',
 		onDelete: 'CASCADE',
 	},
-	materialId: {
-		type: DataTypes.INTEGER,
-		allowNull: false,
-		references: {
-			model: 'materials',
-			key: 'id',
-		},
-		onUpdate: 'CASCADE',
-		onDelete: 'CASCADE',
-	},
+
 	categoryId: {
 		type: DataTypes.INTEGER,
 		allowNull: false,
@@ -65,11 +56,11 @@ const Order = sequelize.define('order', {
 		onUpdate: 'CASCADE',
 		onDelete: 'CASCADE',
 	},
-	layoutId: {
+	serviceId: {
 		type: DataTypes.INTEGER,
 		allowNull: false,
 		references: {
-			model: 'layouts',
+			model: 'services',
 			key: 'id',
 		},
 		onUpdate: 'CASCADE',

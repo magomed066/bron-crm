@@ -1,5 +1,5 @@
 import { useGetCategories } from '@/entities/categories'
-import { useGetLayouts } from '@/entities/layouts'
+import { useGetServices } from '@/entities/services'
 import { useGetMaterials } from '@/entities/materials'
 import { mapDataForSelect } from '@/shared/lib/helpers'
 import { useQueryParams } from '@/shared/lib/hooks'
@@ -9,14 +9,14 @@ import { ChangeEvent, useEffect, useMemo, useState } from 'react'
 export const useOrdersFilters = () => {
 	const { materials } = useGetMaterials()
 	const { categories } = useGetCategories()
-	const { layouts } = useGetLayouts()
+	const { services } = useGetServices()
 
 	const { setQueryParams, getQueryParam, removeQueryParam, removeQueryParams } =
 		useQueryParams()
 
 	const categoryIdQuery = getQueryParam('categoryId') || null
 	const materialIdQuery = getQueryParam('materialId') || null
-	const layoutIdQuery = getQueryParam('layoutId') || null
+	const serviceIdQuery = getQueryParam('serviceId') || null
 	const priceFromQuery = getQueryParam('priceFrom') || null
 	const priceToQuery = getQueryParam('priceTo') || null
 	const isGuaranteeQuery = getQueryParam('isGuarantee') || null
@@ -46,8 +46,8 @@ export const useOrdersFilters = () => {
 	const [categoriesFilter, setCategoriesFilter] = useState<null | string>(
 		categoryIdQuery,
 	)
-	const [layoutsFilter, setLayoutsFilter] = useState<null | string>(
-		layoutIdQuery,
+	const [servicesFilter, setServicesFilter] = useState<null | string>(
+		serviceIdQuery,
 	)
 	const [isGuaranteeFilter, setIsGuaranteeFilter] = useState<null | string>(
 		isGuaranteeQuery,
@@ -77,18 +77,18 @@ export const useOrdersFilters = () => {
 		return []
 	}, [categories])
 
-	const mappedLayouts = useMemo(() => {
-		if (layouts) {
-			return mapDataForSelect(layouts, 'name', 'id')
+	const mappedServices = useMemo(() => {
+		if (services) {
+			return mapDataForSelect(services, 'name', 'id')
 		}
 		return []
-	}, [layouts])
+	}, [services])
 
 	const isActiveReset = useMemo(() => {
 		return (
 			isGuaranteeFilter ||
 			materialsFilter ||
-			layoutsFilter ||
+			servicesFilter ||
 			categoriesFilter ||
 			query ||
 			priceFilter.priceFrom ||
@@ -98,7 +98,7 @@ export const useOrdersFilters = () => {
 	}, [
 		isGuaranteeFilter,
 		materialsFilter,
-		layoutsFilter,
+		servicesFilter,
 		categoriesFilter,
 		query,
 		priceFilter.priceFrom,
@@ -132,17 +132,17 @@ export const useOrdersFilters = () => {
 		removeQueryParam('categoryId')
 	}
 
-	const handleLayouts = (value: string | null) => {
-		setLayoutsFilter(value)
+	const handleServices = (value: string | null) => {
+		setServicesFilter(value)
 
 		if (value) {
 			setQueryParams({
-				layoutId: value,
+				serviceId: value,
 			})
 
 			return
 		}
-		removeQueryParam('layoutId')
+		removeQueryParam('serviceId')
 	}
 
 	const handleIsGuarantee = (value: string | null) => {
@@ -162,13 +162,13 @@ export const useOrdersFilters = () => {
 		removeQueryParams([
 			'categoryId',
 			'materialId',
-			'layoutId',
+			'serviceId',
 			'search',
 			'isGuarantee',
 			'phone',
 		])
 		setCategoriesFilter(null)
-		setLayoutsFilter(null)
+		setServicesFilter(null)
 		setMaterialsFilter(null)
 		setIsGuaranteeFilter(null)
 		setPhone('')
@@ -238,9 +238,9 @@ export const useOrdersFilters = () => {
 	return {
 		mappedMaterials,
 		mappedCategories,
-		mappedLayouts,
+		mappedServices,
 		materialsFilter,
-		layoutsFilter,
+		servicesFilter,
 		categoriesFilter,
 		query,
 		priceFilter,
@@ -254,7 +254,7 @@ export const useOrdersFilters = () => {
 		handleChange,
 		handleReset,
 		handleCategories,
-		handleLayouts,
+		handleServices,
 		handleMaterials,
 		handleIsGuarantee,
 		handleChangePhone,

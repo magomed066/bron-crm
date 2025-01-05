@@ -1,4 +1,4 @@
 export type Props = {
-	layoutId: number
+	serviceId: number
 	name: string
 }

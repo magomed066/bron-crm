@@ -1,7 +1,7 @@
 import { User } from '../auth/types'
 import { Branch } from '../branches/types'
 import { Category } from '../categories/types'
-import { Layout } from '../services/types'
+import { Service } from '../services/types'
 import { Material } from '../materials/types'
 
 export type Order = {
@@ -16,19 +16,18 @@ export type Order = {
 	isGuarantee: boolean
 	category: Category
 	material: Material
-	layout: Layout
+	service: Service
 	materialId: number
 	categoryId: number
-	layoutId: number
+	serviceId: number
 }
 
 export type CreateOrder = Pick<
 	Order,
 	'product' | 'description' | 'price' | 'phone'
 > & {
-	materialId: number | string
 	categoryId: number | string
-	layoutId: number | string
+	serviceId: number | string
 }
 
 export type UpdatedOrder = {

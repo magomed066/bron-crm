@@ -12,7 +12,7 @@ export const OrdersTableWidget = () => {
 	const ordersPageQuery = getQueryParam('ordersPage')
 	const categoryIdQuery = getQueryParam('categoryId')
 	const materialIdQuery = getQueryParam('materialId')
-	const layoutIdQuery = getQueryParam('layoutId')
+	const serviceIdIdQuery = getQueryParam('serviceId')
 	const priceFromQuery = getQueryParam('priceFrom')
 	const priceToQuery = getQueryParam('priceTo')
 	const phoneQuery = getQueryParam('phone')
@@ -25,7 +25,7 @@ export const OrdersTableWidget = () => {
 		search: searchQuery,
 		...(categoryIdQuery && { categoryId: Number(categoryIdQuery) }),
 		...(materialIdQuery && { materialId: Number(materialIdQuery) }),
-		...(layoutIdQuery && { layoutId: Number(layoutIdQuery) }),
+		...(serviceIdIdQuery && { serviceId: Number(serviceIdIdQuery) }),
 		...(priceFromQuery && { priceFrom: Number(priceFromQuery) }),
 		...(priceToQuery && { priceTo: Number(priceToQuery) }),
 		...(phoneQuery && { phone: phoneQuery }),

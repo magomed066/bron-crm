@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useGetCategories } from '@/entities/categories'
-import { useGetLayouts } from '@/entities/layouts'
-import { useGetMaterials } from '@/entities/materials'
+import { useGetServices } from '@/entities/services'
 import {
 	ordersQueryKeys,
 	useCreateOrderMutation,
@@ -43,9 +42,8 @@ export const AddOrderModalFeature = () => {
 	const { getQueryParam } = useQueryParams()
 	const ordersPageQuery = getQueryParam('ordersPage')
 
-	const { isFetching, materials } = useGetMaterials()
 	const { isFetching: categoriesLoading, categories } = useGetCategories()
-	const { isFetching: layoutsLoading, layouts } = useGetLayouts()
+	const { isFetching: servicesLoading, services } = useGetServices()
 
 	const [productName, setProductName] = useState('')
 	const [inputValue, setInputValue] = useState('')
@@ -56,14 +54,6 @@ export const AddOrderModalFeature = () => {
 		debouncedProductValue,
 	)
 
-	const mappedMaterials = useMemo(() => {
-		if (materials) {
-			return mapDataForSelect(materials, 'name', 'id')
-		}
-
-		return []
-	}, [materials])
-
 	const mappedCategories = useMemo(() => {
 		if (categories) {
 			return mapDataForSelect(categories, 'name', 'id')
@@ -72,28 +62,38 @@ export const AddOrderModalFeature = () => {
 		return []
 	}, [categories])
 
-	const mappedLayouts = useMemo(() => {
-		if (layouts) {
-			return mapDataForSelect(layouts, 'name', 'id')
+	const mappedServices = useMemo(() => {
+		if (services) {
+			return mapDataForSelect(services, 'name', 'id')
 		}
 
 		return []
-	}, [layouts])
+	}, [services])
 
-	const { mutate, isPending } = useCreateOrderMutation(() => {
-		handleClose()
+	const { mutate, isPending } = useCreateOrderMutation(
+		() => {
+			handleClose()
 
-		client.invalidateQueries({
-			queryKey: ordersQueryKeys.allOrders('', Number(ordersPageQuery)),
-		})
+			client.invalidateQueries({
+				queryKey: ordersQueryKeys.allOrders('', Number(ordersPageQuery)),
+			})
 
-		notifications.show({
-			color: 'green',
-			autoClose: 2500,
-			title: 'Заказы',
-			message: 'Заказ успешно добавлен',
-		})
-	})
+			notifications.show({
+				color: 'green',
+				autoClose: 2500,
+				title: 'Заказы',
+				message: 'Заказ успешно добавлен',
+			})
+		},
+		(errors) => {
+			notifications.show({
+				color: 'red',
+				autoClose: 2500,
+				title: 'Заказы',
+				message: errors.map((el) => el.message).join(','),
+			})
+		},
+	)
 
 	const form = useForm<CreateOrder>({
 		mode: 'uncontrolled',
@@ -101,18 +101,16 @@ export const AddOrderModalFeature = () => {
 			product: '',
 			price: 0,
 			description: '',
-			materialId: 0,
 			categoryId: 0,
-			layoutId: 0,
+			serviceId: 0,
 			phone: '',
 		},
 		validate: {
 			product: (value) => isValid([requiredValidate('Заполните поле')], value),
 			price: (value) =>
 				isValid([isValidNumber('Заполните поле')], String(value)),
-			materialId: (value) =>
-				isValid([isValidNumber('Заполните поле')], String(value)),
-			layoutId: (value) =>
+
+			serviceId: (value) =>
 				isValid([isValidNumber('Заполните поле')], String(value)),
 			categoryId: (value) =>
 				isValid([isValidNumber('Заполните поле')], String(value)),
@@ -179,16 +177,6 @@ export const AddOrderModalFeature = () => {
 				<Grid.Col span={6}>
 					<Select
 						required
-						data={mappedMaterials}
-						disabled={isFetching}
-						label="Выберите материал"
-						key={form.key('materialId')}
-						{...form.getInputProps('materialId')}
-					/>
-				</Grid.Col>
-				<Grid.Col span={6}>
-					<Select
-						required
 						label="Категория"
 						data={mappedCategories}
 						disabled={categoriesLoading}
@@ -199,11 +187,11 @@ export const AddOrderModalFeature = () => {
 				<Grid.Col span={6}>
 					<Select
 						required
-						label="Оформление"
-						data={mappedLayouts}
-						disabled={layoutsLoading}
-						key={form.key('layoutId')}
-						{...form.getInputProps('layoutId')}
+						label="Услуга"
+						data={mappedServices}
+						disabled={servicesLoading}
+						key={form.key('serviceId')}
+						{...form.getInputProps('serviceId')}
 					/>
 				</Grid.Col>
 				<Grid.Col span={6}>
@@ -217,7 +205,7 @@ export const AddOrderModalFeature = () => {
 
 				<Grid.Col span={12}>
 					<Textarea
-						placeholder="Описание к заказу"
+						placeholder="Комментарий к заказу"
 						autosize
 						minRows={5}
 						key={form.key('description')}

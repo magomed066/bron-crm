@@ -5,7 +5,7 @@ import { Props } from './types'
 import { ModalType } from '@/shared/lib/config'
 import { modals } from '@mantine/modals'
 import { notifications } from '@mantine/notifications'
-import { useDeleteService } from '@/entities/layouts'
+import { useDeleteService } from '@/entities/services'
 
 export const DeleteServiceFeature: FC<Props> = ({ serviceId }) => {
 	const { mutate } = useDeleteService(() => {

@@ -3,9 +3,9 @@ import { Props } from './types'
 import { ActionIcon, Flex, TextInput } from '@mantine/core'
 import { FaCheck } from 'react-icons/fa6'
 import { notifications } from '@mantine/notifications'
-import { useUpdateService } from '@/entities/layouts'
+import { useUpdateService } from '@/entities/services'
 
-export const UpdateServiceFeature: FC<Props> = ({ name, layoutId }) => {
+export const UpdateServiceFeature: FC<Props> = ({ name, serviceId }) => {
 	const [value, setValue] = useState(name)
 
 	const { mutate } = useUpdateService(
@@ -39,7 +39,7 @@ export const UpdateServiceFeature: FC<Props> = ({ name, layoutId }) => {
 		}
 
 		mutate({
-			id: layoutId,
+			id: serviceId,
 			name: value,
 		})
 	}

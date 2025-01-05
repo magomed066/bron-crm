@@ -23,10 +23,10 @@ Order.belongsTo(User, { as: 'user', foreignKey: 'userId' }) // Заказ обр
 Category.hasMany(Order, { foreignKey: 'categoryId' })
 Order.belongsTo(Category, { as: 'category', foreignKey: 'categoryId' })
 
-// Order ↔ Material
-Material.hasMany(Order, { foreignKey: 'materialId' })
-Order.belongsTo(Material, { as: 'material', foreignKey: 'materialId' })
+// // Order ↔ Material
+// Material.hasMany(Order, { foreignKey: 'materialId' })
+// Order.belongsTo(Material, { as: 'material', foreignKey: 'materialId' })
 
-// Order ↔ Layout
-Service.hasMany(Order, { foreignKey: 'layoutId' })
-Order.belongsTo(Service, { as: 'layout', foreignKey: 'layoutId' })
+// Order ↔ Service
+Service.hasMany(Order, { foreignKey: 'serviceId' })
+Order.belongsTo(Service, { as: 'service', foreignKey: 'serviceId' })

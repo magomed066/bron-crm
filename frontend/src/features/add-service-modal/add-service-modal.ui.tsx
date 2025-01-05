@@ -1,4 +1,4 @@
-import { useAddService } from '@/entities/layouts'
+import { useAddService } from '@/entities/services'
 import { ModalType } from '@/shared/lib/config'
 import { isValid, requiredValidate } from '@/shared/lib/helpers'
 import { useModal } from '@/shared/lib/hooks/use-modal'
