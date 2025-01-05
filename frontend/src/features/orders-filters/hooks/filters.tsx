@@ -22,15 +22,22 @@ export const useOrdersFilters = () => {
 	const isGuaranteeQuery = getQueryParam('isGuarantee') || null
 
 	const defaultQuery = getQueryParam('search') || ''
+	const defaultPhoneQuery = getQueryParam('phone') || ''
 
 	const [query, setQuery] = useState(defaultQuery)
+	const [phone, setPhone] = useState(defaultPhoneQuery)
 
 	const [debouncedValue] = useDebouncedValue(query, 1000)
+	const [debouncedPhoneValue] = useDebouncedValue(phone, 1000)
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.target
 
 		setQuery(value)
+	}
+
+	const handleChangePhone = (value: string) => {
+		setPhone(value)
 	}
 
 	const [materialsFilter, setMaterialsFilter] = useState<null | string>(
@@ -85,7 +92,8 @@ export const useOrdersFilters = () => {
 			categoriesFilter ||
 			query ||
 			priceFilter.priceFrom ||
-			priceFilter.priceTo
+			priceFilter.priceTo ||
+			phone
 		)
 	}, [
 		isGuaranteeFilter,
@@ -95,6 +103,7 @@ export const useOrdersFilters = () => {
 		query,
 		priceFilter.priceFrom,
 		priceFilter.priceTo,
+		phone,
 	])
 
 	const handleMaterials = (value: string | null) => {
@@ -156,11 +165,13 @@ export const useOrdersFilters = () => {
 			'layoutId',
 			'search',
 			'isGuarantee',
+			'phone',
 		])
 		setCategoriesFilter(null)
 		setLayoutsFilter(null)
 		setMaterialsFilter(null)
 		setIsGuaranteeFilter(null)
+		setPhone('')
 		setPriceFilter({
 			priceFrom: '',
 			priceTo: '',
@@ -184,6 +195,17 @@ export const useOrdersFilters = () => {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [debouncedValue])
+
+	useEffect(() => {
+		if (debouncedPhoneValue) {
+			setQueryParams({
+				phone: debouncedPhoneValue,
+			})
+		} else {
+			removeQueryParam('phone')
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [debouncedPhoneValue])
 
 	useEffect(() => {
 		if (debouncedPriceToValue) {
@@ -224,6 +246,7 @@ export const useOrdersFilters = () => {
 		priceFilter,
 		isGuaranteeFilter,
 		isActiveReset,
+		phone,
 
 		handlePrice,
 		setQuery,
@@ -234,5 +257,6 @@ export const useOrdersFilters = () => {
 		handleLayouts,
 		handleMaterials,
 		handleIsGuarantee,
+		handleChangePhone,
 	}
 }

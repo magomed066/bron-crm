@@ -36,7 +36,7 @@ export const createOrder = async (req, res) => {
 			materialId,
 			categoryId,
 			layoutId,
-			phone,
+			phone: phone.replace(/[^\d+]/g, ''),
 			isGuarantee: true,
 		})
 
@@ -63,16 +63,20 @@ export const getAllOrder = async (req, res) => {
 			priceFrom,
 			priceTo,
 			isGuarantee,
+			phone,
 		} = req.query // Extract query parameters
 
 		const isGuaranteeValue =
 			isGuarantee === 'true' ? 1 : isGuarantee === 'false' ? 0 : undefined
 
 		const whereClause = {
-			...(!isAdmin && userId ? { userId, deleted: { [Op.not]: true } } : {}),
+			...(phone
+				? { phone: { [Op.eq]: phone.replace(/[^\d+]/g, '') } } // Filter by phone if provided
+				: !isAdmin && userId
+				? { userId, deleted: { [Op.not]: true } }
+				: {}),
 			...(categoryId ? { categoryId: { [Op.eq]: categoryId } } : {}),
 			...(materialId ? { materialId: { [Op.eq]: materialId } } : {}),
-			...(layoutId ? { layoutId: { [Op.eq]: layoutId } } : {}),
 			...(layoutId ? { layoutId: { [Op.eq]: layoutId } } : {}),
 			...(isGuaranteeValue !== undefined
 				? { isGuarantee: { [Op.eq]: isGuaranteeValue } }

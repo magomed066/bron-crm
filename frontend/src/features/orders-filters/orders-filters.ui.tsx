@@ -4,6 +4,7 @@ import { Box, Button, Flex, Input, NumberInput, Select } from '@mantine/core'
 import { CiSearch } from 'react-icons/ci'
 import { useOrdersFilters } from './hooks/filters'
 import clsx from 'clsx'
+import { PhoneInput } from '@/shared/ui'
 
 export const OrdersFiltersFeature = () => {
 	const {
@@ -17,6 +18,7 @@ export const OrdersFiltersFeature = () => {
 		priceFilter,
 		isGuaranteeFilter,
 		isActiveReset,
+		phone,
 		handleIsGuarantee,
 		handleMaterials,
 		handlePrice,
@@ -24,6 +26,7 @@ export const OrdersFiltersFeature = () => {
 		handleReset,
 		handleLayouts,
 		handleChange,
+		handleChangePhone,
 	} = useOrdersFilters()
 
 	return (
@@ -38,6 +41,12 @@ export const OrdersFiltersFeature = () => {
 							leftSection={<CiSearch />}
 						/>
 					</Box>
+
+					<PhoneInput
+						placeholder="Телефон"
+						value={phone}
+						onChange={handleChangePhone}
+					/>
 
 					<Select
 						clearable

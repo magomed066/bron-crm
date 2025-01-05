@@ -16,5 +16,6 @@ export type QueryParams = {
 	priceFrom?: string
 	priceTo?: string
 	isGuarantee?: string
+	phone?: string
 	// [key: string]: string | undefined;
 }

@@ -1,11 +1,19 @@
 import { UserInfoFeature } from '@/features/user-info'
 import { menuLinks } from '@/shared/lib/config'
-import { Container, Menu, Burger, Center, Flex, Box } from '@mantine/core'
+import {
+	Container,
+	Menu,
+	Burger,
+	Center,
+	Flex,
+	Box,
+	Image,
+} from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { IoChevronDown } from 'react-icons/io5'
-import { IoLogoChrome } from 'react-icons/io'
 import { NavLink } from 'react-router-dom'
 import clsx from 'clsx'
+import Logo from '@/assets/logo.jpg'
 import { useUserStore } from '@/entities/auth'
 
 export const Header = () => {
@@ -71,7 +79,7 @@ export const Header = () => {
 			<Container size="lg" fluid>
 				<div className="h-20 flex items-center justify-between">
 					<Flex align="center" justify="space-between" w="100%">
-						<IoLogoChrome className="text-primary" size={42} />
+						<Image src={Logo} alt="logo" w={60} h={60} />
 
 						<Flex gap={20} align="center" visibleFrom="sm">
 							{items}
