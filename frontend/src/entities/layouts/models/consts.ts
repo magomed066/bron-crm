@@ -1,3 +1,3 @@
-export const layoutsQueryKeys = {
+export const servicesQueryKeys = {
 	all: () => ['allLayouts'],
 }

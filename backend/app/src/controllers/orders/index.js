@@ -1,25 +1,11 @@
 import { Op } from 'sequelize'
 import generateError from '../../lib/helpers/generate-error-response.js'
-import {
-	Branch,
-	Category,
-	Layout,
-	Material,
-	Order,
-	User,
-} from '../../models/index.js'
+import { Branch, Category, Material, Order, User } from '../../models/index.js'
 
 export const createOrder = async (req, res) => {
 	try {
-		const {
-			product,
-			description,
-			price,
-			materialId,
-			categoryId,
-			layoutId,
-			phone,
-		} = req.body
+		const { product, description, price, categoryId, serviceId, phone } =
+			req.body
 		const branchId = req.branchId
 		const userId = req.userId
 
@@ -33,9 +19,9 @@ export const createOrder = async (req, res) => {
 			description,
 			userId,
 			branchId,
-			materialId,
+			// materialId,
 			categoryId,
-			layoutId,
+			serviceId,
 			phone: phone.replace(/[^\d+]/g, ''),
 			isGuarantee: true,
 		})
@@ -64,6 +50,7 @@ export const getAllOrder = async (req, res) => {
 			priceTo,
 			isGuarantee,
 			phone,
+			serviceId,
 		} = req.query // Extract query parameters
 
 		const isGuaranteeValue =
@@ -78,6 +65,7 @@ export const getAllOrder = async (req, res) => {
 			...(categoryId ? { categoryId: { [Op.eq]: categoryId } } : {}),
 			...(materialId ? { materialId: { [Op.eq]: materialId } } : {}),
 			...(layoutId ? { layoutId: { [Op.eq]: layoutId } } : {}),
+			...(serviceId ? { serviceId: { [Op.eq]: serviceId } } : {}),
 			...(isGuaranteeValue !== undefined
 				? { isGuarantee: { [Op.eq]: isGuaranteeValue } }
 				: {}),

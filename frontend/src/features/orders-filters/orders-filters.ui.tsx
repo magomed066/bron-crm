@@ -11,16 +11,13 @@ export const OrdersFiltersFeature = () => {
 		query,
 		mappedCategories,
 		mappedLayouts,
-		mappedMaterials,
 		categoriesFilter,
-		materialsFilter,
 		layoutsFilter,
 		priceFilter,
 		isGuaranteeFilter,
 		isActiveReset,
 		phone,
 		handleIsGuarantee,
-		handleMaterials,
 		handlePrice,
 		handleCategories,
 		handleReset,
@@ -55,16 +52,10 @@ export const OrdersFiltersFeature = () => {
 						value={categoriesFilter}
 						onChange={handleCategories}
 					/>
+
 					<Select
 						clearable
-						placeholder="Материалы"
-						data={mappedMaterials}
-						value={materialsFilter}
-						onChange={handleMaterials}
-					/>
-					<Select
-						clearable
-						placeholder="Оформление"
+						placeholder="Услуга"
 						data={mappedLayouts}
 						value={layoutsFilter}
 						onChange={handleLayouts}

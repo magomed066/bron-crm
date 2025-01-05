@@ -3,7 +3,7 @@ import branchRouter from './branches/index.js'
 import orderRouter from './orders/index.js'
 import categoryRouter from './categories/index.js'
 import materialRouter from './materials/index.js'
-import layoutsRouter from './layouts/index.js'
+import servicesRouter from './services/index.js'
 
 export {
 	authRouter,
@@ -11,5 +11,5 @@ export {
 	orderRouter,
 	categoryRouter,
 	materialRouter,
-	layoutsRouter,
+	servicesRouter,
 }

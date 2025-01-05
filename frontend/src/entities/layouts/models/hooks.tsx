@@ -1,34 +1,34 @@
-import { LayoutsService } from '@/shared/api/services'
+import { ServicesService } from '@/shared/api/services'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { layoutsQueryKeys } from './consts'
+import { servicesQueryKeys } from './consts'
 import { RequestError } from '@/shared/types'
 import { AxiosError } from 'axios'
 
-export const useGetLayouts = () => {
+export const useGetServices = () => {
 	const { data, isFetching, isError } = useQuery({
-		queryKey: layoutsQueryKeys.all(),
-		queryFn: () => LayoutsService.getAll(),
+		queryKey: servicesQueryKeys.all(),
+		queryFn: () => ServicesService.getAll(),
 		refetchOnWindowFocus: true,
 		staleTime: 0,
 	})
 
 	return {
-		layouts: data?.data,
+		services: data?.data,
 		isError,
 		isFetching,
 	}
 }
 
-export const useAddLayout = (
+export const useAddService = (
 	onSuccess?: () => void,
 	onError?: (errors: RequestError['errors']) => void,
 ) => {
 	const client = useQueryClient()
 
 	return useMutation({
-		mutationFn: (name: string) => LayoutsService.add(name),
+		mutationFn: (name: string) => ServicesService.add(name),
 		onSuccess: () => {
-			client.invalidateQueries({ queryKey: layoutsQueryKeys.all() })
+			client.invalidateQueries({ queryKey: servicesQueryKeys.all() })
 			onSuccess?.()
 		},
 		onError: (err: AxiosError<RequestError>) => {
@@ -40,16 +40,16 @@ export const useAddLayout = (
 	})
 }
 
-export const useDeleteLayout = (
+export const useDeleteService = (
 	onSuccess?: () => void,
 	onError?: (errors: RequestError['errors']) => void,
 ) => {
 	const client = useQueryClient()
 
 	return useMutation({
-		mutationFn: (id: number) => LayoutsService.remove(id),
+		mutationFn: (id: number) => ServicesService.remove(id),
 		onSuccess: () => {
-			client.invalidateQueries({ queryKey: layoutsQueryKeys.all() })
+			client.invalidateQueries({ queryKey: servicesQueryKeys.all() })
 			onSuccess?.()
 		},
 		onError: (err: AxiosError<RequestError>) => {
@@ -60,7 +60,7 @@ export const useDeleteLayout = (
 	})
 }
 
-export const useUpdateLayout = (
+export const useUpdateService = (
 	onSuccess?: () => void,
 	onError?: (errors: RequestError['errors']) => void,
 ) => {
@@ -68,9 +68,9 @@ export const useUpdateLayout = (
 
 	return useMutation({
 		mutationFn: (data: { id: number; name: string }) =>
-			LayoutsService.update(data),
+			ServicesService.update(data),
 		onSuccess: () => {
-			client.invalidateQueries({ queryKey: layoutsQueryKeys.all() })
+			client.invalidateQueries({ queryKey: servicesQueryKeys.all() })
 			onSuccess?.()
 		},
 		onError: (err: AxiosError<RequestError>) => {

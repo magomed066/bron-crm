@@ -98,19 +98,7 @@ export const ordersTableConfig: ColumnDef<Order>[] = [
 	},
 	{
 		id: '6',
-		header: 'Материал',
-		accessorKey: 'material',
-
-		cell: (row) => {
-			const { original } = row.cell.row
-
-			return <span>{original.material.name}</span>
-		},
-		maxSize: 20,
-	},
-	{
-		id: '7',
-		header: 'Оформление',
+		header: 'Услуга',
 		accessorKey: 'layout',
 
 		cell: (row) => {
@@ -121,7 +109,7 @@ export const ordersTableConfig: ColumnDef<Order>[] = [
 		maxSize: 20,
 	},
 	{
-		id: '8',
+		id: '7',
 		header: 'Цена ₽',
 		accessorKey: 'price',
 
@@ -133,7 +121,7 @@ export const ordersTableConfig: ColumnDef<Order>[] = [
 		maxSize: 20,
 	},
 	{
-		id: '9',
+		id: '8',
 		header: 'Гарантия',
 		cell: (row) => {
 			const { original } = row.cell.row
@@ -151,7 +139,7 @@ export const ordersTableConfig: ColumnDef<Order>[] = [
 		maxSize: 20,
 	},
 	{
-		id: '10',
+		id: '9',
 		header: 'Работник',
 		accessorKey: 'user',
 
@@ -172,7 +160,7 @@ export const ordersTableConfig: ColumnDef<Order>[] = [
 		maxSize: 20,
 	},
 	{
-		id: '11',
+		id: '10',
 		header: 'Точка',
 		accessorKey: 'price',
 

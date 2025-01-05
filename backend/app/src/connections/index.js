@@ -4,7 +4,7 @@ import {
 	Material,
 	Order,
 	User,
-	Layout,
+	Service,
 } from '../models/index.js'
 
 // Branch ↔ User
@@ -28,5 +28,5 @@ Material.hasMany(Order, { foreignKey: 'materialId' })
 Order.belongsTo(Material, { as: 'material', foreignKey: 'materialId' })
 
 // Order ↔ Layout
-Layout.hasMany(Order, { foreignKey: 'layoutId' })
-Order.belongsTo(Layout, { as: 'layout', foreignKey: 'layoutId' })
+Service.hasMany(Order, { foreignKey: 'layoutId' })
+Order.belongsTo(Service, { as: 'layout', foreignKey: 'layoutId' })

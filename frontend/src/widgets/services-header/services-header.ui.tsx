@@ -1,15 +1,15 @@
-import { AddLayoutFeature } from '@/features/add-layout'
+import { AddServiceFeature } from '@/features/add-service'
 import { Box, Flex, Title } from '@mantine/core'
 
-export const LayoutsHeaderWidget = () => {
+export const ServicesHeaderWidget = () => {
 	return (
 		<Box>
 			<Flex align="center" gap={16}>
 				<Title order={3} c="dark">
-					Оформление
+					Услуги
 				</Title>
 
-				<AddLayoutFeature />
+				<AddServiceFeature />
 			</Flex>
 		</Box>
 	)

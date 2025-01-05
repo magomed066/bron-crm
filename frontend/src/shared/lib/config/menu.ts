@@ -34,14 +34,8 @@ export const menuLinks: NavLink[] = [
 		roles: [Roles.Admin],
 	},
 	{
-		link: routes.materials,
-		label: 'Материалы',
-		links: [],
-		roles: [Roles.Admin],
-	},
-	{
-		link: routes.layouts,
-		label: 'Оформление',
+		link: routes.services,
+		label: 'Услуги',
 		links: [],
 		roles: [Roles.Admin],
 	},

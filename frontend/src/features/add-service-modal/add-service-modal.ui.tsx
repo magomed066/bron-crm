@@ -1,4 +1,4 @@
-import { useAddLayout } from '@/entities/layouts'
+import { useAddService } from '@/entities/layouts'
 import { ModalType } from '@/shared/lib/config'
 import { isValid, requiredValidate } from '@/shared/lib/helpers'
 import { useModal } from '@/shared/lib/hooks/use-modal'
@@ -6,26 +6,26 @@ import { Button, Flex, TextInput } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { notifications } from '@mantine/notifications'
 
-export const AddLayoutModalFeature = () => {
+export const AddServiceModalFeature = () => {
 	const { handleClose } = useModal({
-		type: ModalType.ADD_LAYOUT,
+		type: ModalType.ADD_SERVICE,
 	})
 
-	const { mutate, isPending } = useAddLayout(
+	const { mutate, isPending } = useAddService(
 		() => {
 			handleClose()
 			notifications.show({
 				color: 'green',
 				autoClose: 2500,
-				title: 'Добавление оформления',
-				message: 'Оформление успешно добавлено',
+				title: 'Добавление услуги',
+				message: 'Услуга успешно добавлена',
 			})
 		},
 		(errors) => {
 			notifications.show({
 				color: 'red',
 				autoClose: 2500,
-				title: 'Добавление оформления',
+				title: 'Добавление услуги',
 				message: errors.map((el) => el.message).join(','),
 			})
 		},
@@ -48,7 +48,7 @@ export const AddLayoutModalFeature = () => {
 	return (
 		<form onSubmit={handleSubmit}>
 			<TextInput
-				label="Название оформления"
+				label="Название услуги"
 				key={form.key('name')}
 				{...form.getInputProps('name')}
 			/>

@@ -1,4 +1,4 @@
-export type Layout = {
+export type Service = {
 	id: number
 	name: string
 }

@@ -1,1 +1,1 @@
-export { UpdateLayoutFeature } from './update-layout.ui'
+export { UpdateServiceFeature } from './update-layout.ui'

@@ -1,7 +1,7 @@
 import { User } from '../auth/types'
 import { Branch } from '../branches/types'
 import { Category } from '../categories/types'
-import { Layout } from '../layouts/types'
+import { Layout } from '../services/types'
 import { Material } from '../materials/types'
 
 export type Order = {

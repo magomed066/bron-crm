@@ -3,25 +3,25 @@ import { Props } from './types'
 import { ActionIcon, Flex, TextInput } from '@mantine/core'
 import { FaCheck } from 'react-icons/fa6'
 import { notifications } from '@mantine/notifications'
-import { useUpdateLayout } from '@/entities/layouts'
+import { useUpdateService } from '@/entities/layouts'
 
-export const UpdateLayoutFeature: FC<Props> = ({ name, layoutId }) => {
+export const UpdateServiceFeature: FC<Props> = ({ name, layoutId }) => {
 	const [value, setValue] = useState(name)
 
-	const { mutate } = useUpdateLayout(
+	const { mutate } = useUpdateService(
 		() => {
 			notifications.show({
 				color: 'green',
 				autoClose: 2500,
-				title: 'Изменение оформления',
-				message: 'Оформление успешно изменено',
+				title: 'Изменение услуги',
+				message: 'Услуга успешно изменена',
 			})
 		},
 		(errors) => {
 			notifications.show({
 				color: 'red',
 				autoClose: 2500,
-				title: 'Изменение оформления',
+				title: 'Изменение услуги',
 				message: errors.map((el) => el.message).join(','),
 			})
 		},

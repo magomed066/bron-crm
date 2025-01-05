@@ -7,7 +7,7 @@ export enum ModalType {
 	'CONFIRM_DELETE_BRANCH' = 'confirm_delete_branch',
 	'ADD_CATEGORY' = 'add_category',
 	'ADD_MATERIAL' = 'add_material',
-	'ADD_LAYOUT' = 'add_layout',
+	'ADD_SERVICE' = 'add_service',
 	'CONFIRM_DELETE_MATERIAL' = 'confirm_delete_material',
-	'CONFIRM_DELETE_LAYOUT' = 'confirm_delete_layout',
+	'CONFIRM_DELETE_SERVICE' = 'confirm_delete_service',
 }
