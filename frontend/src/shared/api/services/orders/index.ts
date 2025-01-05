@@ -29,4 +29,12 @@ export class OrdersService {
 	static update(data: UpdatedOrder) {
 		return apiService.post('/orders/update', data)
 	}
+
+	static getHints(q: string): Promise<AxiosResponse<string[]>> {
+		return apiService.get('/orders/product/hints', {
+			params: {
+				q,
+			},
+		})
+	}
 }
