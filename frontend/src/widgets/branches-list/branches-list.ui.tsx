@@ -30,7 +30,7 @@ export const BranchesListWidget = () => {
 	}
 
 	return (
-		<Flex direction="column" gap={16} maw={900} w="100%" className="mx-auto">
+		<Flex direction="column" gap={16} maw={900} w="100%">
 			{branches.map((el) => (
 				<BranchCard
 					key={el.id}

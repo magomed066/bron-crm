@@ -9,5 +9,6 @@ type Colors =
 	| 'gray'
 	| 'none'
 	| 'dark'
+	| 'dimmed'
 
 export type ExtendedCustomColors = Colors & DefaultMantineColor
