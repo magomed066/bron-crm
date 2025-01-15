@@ -33,7 +33,7 @@ export const ServicesContentWidget = () => {
 
 	return (
 		<Box py={28}>
-			<Flex direction="column" gap={16}>
+			<Flex direction="column" gap={16} maw={600}>
 				{services.length
 					? services.map((el) => (
 							<Category

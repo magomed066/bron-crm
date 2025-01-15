@@ -1,24 +1,14 @@
-import { useDisclosure } from '@mantine/hooks'
 import { Outlet } from 'react-router-dom'
 import { AppShell, Burger, Group, Image } from '@mantine/core'
 import Logo from '@/assets/logo.jpg'
 import { SidebarWidget } from '@/widgets/sidebar'
+import { useNavbarStore } from '@/app/global/store'
 
 export const BaseLayout = () => {
-	const [mobileOpened, { toggle: toggleMobile }] = useDisclosure()
-	const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true)
+	const { mobileOpened, desktopOpened, toggleDesktop, toggleMobile } =
+		useNavbarStore()
 
 	return (
-		// <div className="min-h-screen bg-slate-50">
-		// 	<Header />
-
-		// 	<div className="mt-4">
-		// 		<Container fluid pb={32}>
-		// 			<Outlet />
-		// 		</Container>
-		// 	</div>
-		// </div>
-
 		<AppShell
 			header={{ height: 70 }}
 			navbar={{
@@ -45,7 +35,6 @@ export const BaseLayout = () => {
 						visibleFrom="sm"
 						size="sm"
 					/>
-					{/* <MantineLogo size={30} /> */}
 
 					<Image src={Logo} alt="logo" w={50} h={50} />
 				</Group>

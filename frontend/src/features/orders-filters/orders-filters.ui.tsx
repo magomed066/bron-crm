@@ -29,8 +29,8 @@ export const OrdersFiltersFeature = () => {
 	return (
 		<Flex align="flex-end" gap={16}>
 			<Flex direction="column" gap={16}>
-				<Flex align="center" gap={16}>
-					<Box w={300}>
+				<Flex align="center" gap={16} wrap="wrap" className="w-full">
+					<Box className="md:w-[300px] w-full">
 						<Input
 							placeholder="Поиск заказа..."
 							value={query}
@@ -39,54 +39,67 @@ export const OrdersFiltersFeature = () => {
 						/>
 					</Box>
 
-					<PhoneInput
-						placeholder="Телефон"
-						value={phone}
-						onChange={handleChangePhone}
-					/>
+					<Box className="md:w-[200px] w-full">
+						<PhoneInput
+							placeholder="Телефон"
+							value={phone}
+							onChange={handleChangePhone}
+						/>
+					</Box>
 
-					<Select
-						clearable
-						placeholder="Категория"
-						data={mappedCategories}
-						value={categoriesFilter}
-						onChange={handleCategories}
-					/>
+					<Box className="md:w-[200px] w-full">
+						<Select
+							clearable
+							placeholder="Категория"
+							data={mappedCategories}
+							value={categoriesFilter}
+							onChange={handleCategories}
+						/>
+					</Box>
 
-					<Select
-						clearable
-						placeholder="Услуга"
-						data={mappedServices}
-						value={servicesFilter}
-						onChange={handleServices}
-					/>
+					<Box className="md:w-[200px] w-full">
+						<Select
+							clearable
+							placeholder="Услуга"
+							data={mappedServices}
+							value={servicesFilter}
+							onChange={handleServices}
+						/>
+					</Box>
 				</Flex>
 
-				<Flex gap={16}>
-					<Flex align="center" gap={16}>
-						<NumberInput
-							value={priceFilter.priceFrom || ''}
-							onChange={(e) => handlePrice('priceFrom', e)}
-							placeholder="Цена от"
-							thousandSeparator=" "
-						/>
-						<NumberInput
-							value={priceFilter.priceTo || ''}
-							onChange={(e) => handlePrice('priceTo', e)}
-							placeholder="Цена до"
-							thousandSeparator=" "
-						/>
+				<Flex gap={16} wrap="wrap">
+					<Flex align="center" gap={16} wrap="wrap">
+						<Box className="md:w-[200px] w-full">
+							<NumberInput
+								value={priceFilter.priceFrom || ''}
+								onChange={(e) => handlePrice('priceFrom', e)}
+								placeholder="Цена от"
+								thousandSeparator=" "
+							/>
+						</Box>
 
-						<Select
-							placeholder="Гарантия"
-							value={isGuaranteeFilter}
-							onChange={handleIsGuarantee}
-							clearable
-							data={[
-								{ value: 'false', label: 'Снято с гарантии' },
-								{ value: 'true', label: 'На гарантии' },
-							]}
-						/>
+						<Box className="md:w-[200px] w-full">
+							<NumberInput
+								value={priceFilter.priceTo || ''}
+								onChange={(e) => handlePrice('priceTo', e)}
+								placeholder="Цена до"
+								thousandSeparator=" "
+							/>
+						</Box>
+
+						<Box className="md:w-[200px] w-full">
+							<Select
+								placeholder="Гарантия"
+								value={isGuaranteeFilter}
+								onChange={handleIsGuarantee}
+								clearable
+								data={[
+									{ value: 'false', label: 'Снято с гарантии' },
+									{ value: 'true', label: 'На гарантии' },
+								]}
+							/>
+						</Box>
 					</Flex>
 					<Button
 						variant="light"

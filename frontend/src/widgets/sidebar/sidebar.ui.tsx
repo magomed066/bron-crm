@@ -3,29 +3,39 @@ import clsx from 'clsx'
 import { Box, Flex } from '@mantine/core'
 import { menuLinks } from '@/shared/lib/config'
 import { UserInfoFeature } from '@/features/user-info'
+import { useUserStore } from '@/entities/auth'
+import { useNavbarStore } from '@/app/global/store'
 
 export const SidebarWidget = () => {
-	const links = menuLinks.map((item) => (
-		<NavLink
-			className={({ isActive }) => {
-				return clsx(
-					'flex items-center text-sm gap-4 font-medium px-2 py-3 rounded transition text-gray-700 hover:bg-slate-100 hover:text-black [&>*]:hover:text-black',
-					isActive ? 'bg-slate-100 ' : '',
-				)
-			}}
-			key={item.link}
-			to={item.link}
-		>
-			<Box
-				w={32}
-				h={32}
-				className="bg-primary rounded-[4px] flex items-center justify-center"
-			>
-				{item.icon}
-			</Box>
-			<span>{item.label}</span>
-		</NavLink>
-	))
+	const { user } = useUserStore()
+	const { toggleMobile } = useNavbarStore()
+
+	const links =
+		user &&
+		menuLinks
+			.filter((el) => el.roles.includes(+user?.isAdmin))
+			.map((item) => (
+				<NavLink
+					className={({ isActive }) => {
+						return clsx(
+							'flex items-center text-sm gap-4 font-medium px-2 py-3 rounded transition text-gray-700 hover:bg-slate-100 hover:text-black [&>*]:hover:text-black',
+							isActive ? 'bg-slate-100 ' : '',
+						)
+					}}
+					key={item.link}
+					to={item.link}
+					onClick={toggleMobile}
+				>
+					<Box
+						w={32}
+						h={32}
+						className="bg-primary rounded-[4px] flex items-center justify-center"
+					>
+						{item.icon}
+					</Box>
+					<span>{item.label}</span>
+				</NavLink>
+			))
 
 	return (
 		<nav className="h-full flex flex-col justify-between">
