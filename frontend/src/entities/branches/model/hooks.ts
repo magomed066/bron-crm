@@ -1,5 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { BranchesService, CreateBranch } from '@/shared/api/services'
+import {
+	BranchesService,
+	CreateBranch,
+	UpdateBrach,
+} from '@/shared/api/services'
 import { branchesQueryKeys } from './constants'
 import { AxiosError } from 'axios'
 import { RequestError } from '@/shared/types'
@@ -54,5 +58,25 @@ export const useDeleteBranch = (
 			onSuccess?.()
 		},
 		onError,
+	})
+}
+
+export const useUpdatedBranch = (
+	onSuccess?: () => void,
+	onError?: (errors: RequestError['errors']) => void,
+) => {
+	const client = useQueryClient()
+
+	return useMutation({
+		mutationFn: (data: UpdateBrach) => BranchesService.updatedBranch(data),
+		onSuccess: () => {
+			client.invalidateQueries({ queryKey: branchesQueryKeys.allBranches() })
+			onSuccess?.()
+		},
+		onError: (err: AxiosError<RequestError>) => {
+			if (err.response?.data.errors) {
+				onError?.(err.response.data.errors)
+			}
+		},
 	})
 }

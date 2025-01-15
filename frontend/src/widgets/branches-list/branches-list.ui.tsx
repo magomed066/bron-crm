@@ -36,8 +36,13 @@ export const BranchesListWidget = () => {
 					key={el.id}
 					branch={el}
 					actions={[
-						<EditBranchFeature />,
-						<DeleteBranchFeature branchId={el.id} />,
+						<EditBranchFeature
+							branchId={el.id}
+							name={el.name}
+							address={el.address}
+							key={1}
+						/>,
+						<DeleteBranchFeature branchId={el.id} key={2} />,
 					]}
 				/>
 			))}

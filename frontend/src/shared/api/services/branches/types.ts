@@ -8,3 +8,5 @@ export type Branch = {
 }
 
 export type CreateBranch = Pick<Branch, 'name' | 'address'>
+
+export type UpdateBrach = Pick<Branch, 'id' | 'name' | 'address'>
