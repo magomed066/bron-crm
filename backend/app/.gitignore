@@ -1,2 +1,8 @@
 .env
 node_modules
+
+# Db migration
+/config
+migrations
+/models
+seeders
