@@ -26,7 +26,7 @@ export const CategoriesContentWidget = () => {
 
 	return (
 		<Box py={28}>
-			<Flex direction="column" gap={16}>
+			<Flex direction="column" gap={16} maw={600}>
 				{categories.length
 					? categories.map((el) => (
 							<Category

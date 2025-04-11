@@ -7,12 +7,12 @@ import cors from 'cors'
 import db from './config/db.js'
 import './connections/index.js'
 import {
-	authRouter,
-	branchRouter,
-	categoryRouter,
-	servicesRouter,
-	materialRouter,
-	orderRouter,
+  authRouter,
+  branchRouter,
+  categoryRouter,
+  servicesRouter,
+  materialRouter,
+  orderRouter
 } from './routes/index.js'
 // import path from 'path'
 // import { fileURLToPath } from 'url'
@@ -20,7 +20,7 @@ import {
 // const __filename = fileURLToPath(import.meta.url)
 // const __dirname = path.dirname(__filename)
 
-const PORT = process.env.PORT ?? 3001
+const PORT = process.env.PORT ?? 3000
 
 const app = express()
 
@@ -35,21 +35,21 @@ app.use('/api/materials', materialRouter)
 app.use('/api/services', servicesRouter)
 
 app.get('/', (req, res) => {
-	res.send(`<h1>Server is running on port: ${PORT}</h1>`)
+  res.send(`<h1>Server is running on port: ${PORT}</h1>`)
 })
 
 db.sync()
-	.then(() => {
-		console.log(colors.bgGreen('Connected to the DB...'))
+  .then(() => {
+    console.log(colors.bgGreen('Connected to the DB...'))
 
-		app.listen(PORT, () => {
-			console.log(
-				`Server has been started on port ${colors.bgBlue(
-					`http://localhost:${PORT}`,
-				)}`,
-			)
-		})
-	})
-	.catch((err) => {
-		console.log(err)
-	})
+    app.listen(PORT, () => {
+      console.log(
+        `Server has been started on port ${colors.bgBlue(
+          `http://localhost:${PORT}`
+        )}`
+      )
+    })
+  })
+  .catch((err) => {
+    console.log(err)
+  })

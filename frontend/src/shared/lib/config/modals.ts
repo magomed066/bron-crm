@@ -3,6 +3,7 @@ export enum ModalType {
 	'CONFIRM_DELETE_CATEGORY' = 'confirm_delete_category',
 	'ADD_ORDER' = 'add_order',
 	'ADD_BRANCH' = 'add_branch',
+	'EDIT_BRANCH' = 'edit_branch',
 	'ADD_EMPLOYEE' = 'add_employee',
 	'CONFIRM_DELETE_BRANCH' = 'confirm_delete_branch',
 	'ADD_CATEGORY' = 'add_category',

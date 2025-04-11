@@ -1,15 +1,18 @@
-FROM node:20
+# Use Node.js base image
+FROM node:18
 
-WORKDIR /var/www/app
+# Set working directory
+WORKDIR /app
 
-COPY ./app/package*.json ./
-
-COPY . .
-
-RUN npm install sqlite3 --build-from-source
-RUN npm install -g nodemon
+# Copy package files and install deps
+COPY package*.json ./app
 RUN npm install
 
+# Copy the rest of the app
+COPY . .
+
+# Expose backend port
 EXPOSE 3000
 
-CMD ["npm", "run", "dev"]
+# Start the server
+CMD ["npm", "run", "start"]

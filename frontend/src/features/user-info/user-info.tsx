@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Menu, Flex, Avatar, UnstyledButton } from '@mantine/core'
+import { Menu, Flex, Avatar, UnstyledButton, Text } from '@mantine/core'
 import { IoLogOutOutline } from 'react-icons/io5'
 import { IoSettingsOutline } from 'react-icons/io5'
 import { useUserStore } from '@/entities/auth'
@@ -8,7 +8,7 @@ import { routes } from '@/shared/lib/config'
 
 export const UserInfoFeature = () => {
 	const [userMenuOpened, setUserMenuOpened] = useState(false)
-	const { logout } = useUserStore()
+	const { logout, user } = useUserStore()
 
 	return (
 		<Menu
@@ -27,8 +27,17 @@ export const UserInfoFeature = () => {
 							: 'hover:bg-white dark:hover:bg-gray-700 p-3'
 					}`}
 				>
-					<Flex align="center" gap={2}>
+					<Flex align="center" gap={16}>
 						<Avatar src={''} alt={''} radius="xl" size={32} />
+
+						<Flex direction="column" gap={0}>
+							<Text size="sm">
+								{user?.firstName} {user?.lastName}
+							</Text>
+							<Text size="xs" c="gray">
+								{user?.isAdmin ? 'Администратор' : 'Работник'}
+							</Text>
+						</Flex>
 					</Flex>
 				</UnstyledButton>
 			</Menu.Target>

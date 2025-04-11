@@ -1,27 +1,28 @@
-import { Box, Card, Divider, Flex, Text, Title } from '@mantine/core'
-import React, { FC } from 'react'
+import { Card, Divider, Flex, Text, Title } from '@mantine/core'
+import React, { FC, Fragment } from 'react'
 import { Props } from './types'
 
 export const BranchCard: FC<Props> = ({ branch, actions }) => {
 	return (
 		<Card shadow="sm">
 			<Flex align="center" gap={16}>
-				<Box className="bg-slate-200 w-fit py-1 px-2">
+				<Flex direction="column" gap={4}>
+					<Text tt="uppercase" c="dimmed" fw={700} size="xs">
+						{branch.address}
+					</Text>
+
 					<Title order={4}>{branch.name}</Title>
-				</Box>
-
-				<Divider orientation="vertical" />
-
-				<Text c="secondaryColor">{branch.address}</Text>
+				</Flex>
 
 				<Flex className="ml-auto" align="center" gap={8}>
 					{actions
-						? actions.map((action) =>
-								React.cloneElement(action, { key: branch.id }),
+						? actions.map((action, i) =>
+								React.cloneElement(action, { key: `${branch.id}-${i}` }),
 						  )
 						: null}
 				</Flex>
 			</Flex>
+
 			<Divider my={16} />
 
 			<Text size="lg" fw="bold">
@@ -37,8 +38,8 @@ export const BranchCard: FC<Props> = ({ branch, actions }) => {
 
 			<Flex direction="column" mt={8}>
 				{branch.users.map((user, i) => (
-					<>
-						<Flex key={user.id} direction="column" gap={8}>
+					<Fragment key={`${user.id}${i}`}>
+						<Flex direction="column" gap={8}>
 							<Flex align="center" gap={8}>
 								<Text c="secondaryColor">Имя:</Text>
 								<Text>
@@ -55,7 +56,7 @@ export const BranchCard: FC<Props> = ({ branch, actions }) => {
 							</Flex>
 						</Flex>
 						{i < branch.users.length - 1 ? <Divider my={8} w="30%" /> : null}
-					</>
+					</Fragment>
 				))}
 			</Flex>
 		</Card>
